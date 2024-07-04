@@ -13,10 +13,9 @@
 
 .cancel {
     background-color: red;
-    color: white;
     border-radius: 20px;
-    border: 0px;
     width: 20px;
+    cursor: pointer;
 }
 
 .error {

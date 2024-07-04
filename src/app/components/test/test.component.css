@@ -47,6 +47,13 @@
     text-align: center;
 }
 
+.new-btn {
+    background-color: green;
+    border-radius: 20px;
+    width: 20px;
+    cursor: pointer;
+}
+
 .choice {
     display: flex;
     margin-left: 5px;

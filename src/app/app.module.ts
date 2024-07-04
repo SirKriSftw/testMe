@@ -8,6 +8,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { TestComponent } from './components/test/test.component';
 import { TestsComponent } from './components/tests/tests.component';
 import { FormsModule } from '@angular/forms';
+import { NewQuestionComponent } from './components/new-question/new-question.component';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import { FormsModule } from '@angular/forms';
     HomeComponent,
     NavbarComponent,
     TestComponent,
-    TestsComponent
+    TestsComponent,
+    NewQuestionComponent
   ],
   imports: [
     BrowserModule,

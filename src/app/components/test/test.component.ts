@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild, ViewContainerRef } from '@angular/core';
 import { TestsService } from '../../services/tests.service';
 import { Test } from '../../models/test.model';
 import { ActivatedRoute } from '@angular/router';
+import { NewQuestionComponent } from '../new-question/new-question.component';
 
 @Component({
   selector: 'app-test',
@@ -9,6 +10,8 @@ import { ActivatedRoute } from '@angular/router';
   styleUrl: './test.component.css'
 })
 export class TestComponent {
+
+  @ViewChild('new_question', { read: ViewContainerRef }) questionContainer!: ViewContainerRef;
 
   test?: Test;
   id?: number;
@@ -26,5 +29,11 @@ export class TestComponent {
         this.test = r;
       }
     );
+  }
+
+  newQuestion()
+  {
+    const newQ = this.questionContainer.createComponent(NewQuestionComponent);
+    newQ.instance.testId = this.id!;
   }
 }

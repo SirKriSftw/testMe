@@ -10,10 +10,13 @@
             </div>
             <div class = "question" *ngFor = "let question of test?.questions">
                 {{question.question}}
-                <div class = "choices" *ngFor = "let choice of question.choices">
+                <div class = "choices" *ngFor = "let choice of question.choices; let i = index;">
                     <div class = "choice">
-                        {{choice.choice}}
-                    </div>  
+                        <label>{{choiceLabel(i)}}</label>
+                        <div class = "choice">
+                            {{choice.choice}}
+                        </div> 
+                    </div> 
                 </div>
                 <div>
                     <label>Answer: </label>

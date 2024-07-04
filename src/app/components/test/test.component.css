@@ -46,3 +46,8 @@
 .new {
     text-align: center;
 }
+
+.choice {
+    display: flex;
+    margin-left: 5px;
+}

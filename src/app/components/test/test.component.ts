@@ -31,6 +31,15 @@ export class TestComponent {
     );
   }
 
+  choiceLabel(i: number)
+  {
+    const asciiA = "a".charCodeAt(0);
+    const asciiValue = i + asciiA;
+    const optionLetter = String.fromCharCode(asciiValue);
+
+    return `${optionLetter}.`
+  }
+
   newQuestion()
   {
     const newQ = this.questionContainer.createComponent(NewQuestionComponent);

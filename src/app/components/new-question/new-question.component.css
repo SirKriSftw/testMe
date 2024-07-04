@@ -32,4 +32,15 @@
 
 .choice {
     margin-bottom: 5px;
+    width: 100%;
+    display: flex;
+}
+
+.choice input {
+    width: 100%;
+    margin-left: 3px;
+}
+
+.submit {
+    margin-top: 10px;
 }

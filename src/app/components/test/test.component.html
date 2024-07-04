@@ -1,1 +1,20 @@
-<p>test works!</p>
+<div class = "wrapper">
+    <div class = "container">
+        <h1>{{test?.title}}</h1>
+        <i>{{test?.description}}</i>
+
+        <div class = "questions">
+            <div class = "question" *ngFor = "let question of test?.questions">
+                {{question.question}}
+                <div class = "choices" *ngFor = "let choice of question.choices">
+                    <div class = "choice">
+                        {{choice.choice}}
+                    </div>  
+                </div>
+                <div class = "answer">
+                    Answer: {{question.answer}}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

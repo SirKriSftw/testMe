@@ -18,6 +18,11 @@ html, body {
     overflow-y: auto;
 }
 
+::selection {
+    background-color: #DEA2F6;
+    color: #0F379B;
+  }
+
 /* For horizontal scrollbar */
 ::-webkit-scrollbar {
     width: 8px;

@@ -41,10 +41,13 @@
     display: flex;
 }
 
+.answer label {
+    margin-right: 5px;
+}
+
 .spoiler {
     background-color: black;
-    width: 100%;
-    margin-left: 5px;
+    width: 100%
 }
 
 .spoiler:hover {

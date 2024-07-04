@@ -5,6 +5,7 @@ export interface Test {
     creatorId: number;
     categoryId: number;
     title: string;
+    description?: string;
     public?: boolean;
     questions?: Question[];
   }

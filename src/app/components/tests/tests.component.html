@@ -1,1 +1,21 @@
-<p>tests works!</p>
+<div class = "wrapper">
+    <div class = "search">
+        Search:
+        <input>
+        <select>
+            <option value = "0"></option>
+            <option value = "1">Category 1</option>
+            <option value = "2">Category 2</option>
+            <option value = "3">Category 3</option>
+            <option value = "4">Category 4</option>
+        </select>
+    </div>
+    <div class = "container">
+        <div *ngFor = "let test of tests" class = "test">
+            <div class = "card">
+                <h1 class = "title">{{test.title}}</h1>
+                <i class = "description">{{test.description}}</i>
+            </div>
+        </div>
+    </div>
+</div>

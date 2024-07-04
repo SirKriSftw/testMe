@@ -35,5 +35,10 @@ export class TestComponent {
   {
     const newQ = this.questionContainer.createComponent(NewQuestionComponent);
     newQ.instance.testId = this.id!;
+
+    newQ.instance.questionSaved.subscribe((r) => {
+      this.test?.questions?.push(r);
+      newQ.destroy();
+    })
   }
 }

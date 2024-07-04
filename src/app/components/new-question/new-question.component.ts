@@ -1,4 +1,7 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { QuestionsService } from '../../services/questions.service';
+import { Choice } from '../../models/choice.model';
+import { Question } from '../../models/question.model';
 
 @Component({
   selector: 'app-new-question',
@@ -8,13 +11,16 @@ import { Component, Input } from '@angular/core';
 export class NewQuestionComponent {
 
   @Input() testId: number = 0;
+  @Output() questionSaved = new EventEmitter<Question>();
   question: string = "";
   answer: string = "";
   answerIndex: number = -1;
-  choices: string[] = [];
+  choices: Choice[] = [];
   errors: string [] = [];
   warning: string = "";
   MAX_CHOICES: number = 26;
+
+  constructor(private questionsService: QuestionsService){}
 
   choiceLabel(i: number)
   {
@@ -27,7 +33,11 @@ export class NewQuestionComponent {
 
   addChoice()
   {
-    this.choices.push("");
+    this.choices.push(
+      {
+        choice: ""
+      }
+    );
   }
 
   removeChoice(i: number)
@@ -40,7 +50,7 @@ export class NewQuestionComponent {
     return index;
   }
 
-  saveQuestion()
+  submitQuestion()
   {
     this.errors = [];
     this.warning = "";
@@ -51,13 +61,13 @@ export class NewQuestionComponent {
 
     if(this.answerIndex != -1)
     {
-      if(this.choices[this.answerIndex] != "") this.answer = this.choices[this.answerIndex];
+      if(this.choices[this.answerIndex].choice != "") this.answer = this.choices[this.answerIndex].choice;
     }
 
-    if(this.choices.includes(""))
+    if(this.choices.some(c => c.choice = ""))
     {
       this.warning = "Empty choices are removed before saving."
-      this.choices = this.choices.filter(c => c !== "");
+      this.choices = this.choices.filter(c => c.choice !== "");
     }
 
     if(this.answer == "" || this.answer == undefined)
@@ -67,7 +77,24 @@ export class NewQuestionComponent {
 
     if(this.errors.length == 0)
     {
-      console.log("Saving question");
+      this.saveQuestion();
     }
+  }
+
+  saveQuestion()
+  {
+    let newQuestion = {
+      testId: this.testId,
+      question: this.question,
+      answer: this.answer,
+      choices: this.choices
+    }
+
+    this.questionsService.saveQuestion(newQuestion).subscribe(
+      (r) => {
+        this.questionSaved.emit(r);
+      }
+    );
+    console.log("Saving question");
   }
 }

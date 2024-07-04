@@ -1,7 +1,7 @@
 import { Choice } from "./choice.model";
 
 export interface Question {
-    id: number;
+    id?: number;
     testId: number;
     question: string;
     answer: string;

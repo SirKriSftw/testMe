@@ -22,10 +22,10 @@
     margin-bottom: 20px;
 }
 
-.answer {
+.spoiler {
     background-color: black;
 }
 
-.answer:hover {
+.spoiler:hover {
     background-color: inherit;
 }

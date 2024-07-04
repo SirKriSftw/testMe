@@ -12,6 +12,7 @@ export class TestComponent {
 
   test?: Test;
   id?: number;
+  hideAnswers: boolean = false;
 
   constructor(private testsService: TestsService,
               private route: ActivatedRoute

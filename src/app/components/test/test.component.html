@@ -13,7 +13,7 @@
                 </div>
                 <div>
                     Answer:
-                    <span class = "answer"> {{question.answer}}</span>
+                    <span class = "answer" [ngClass] = "{ 'spoiler' : hideAnswers }"> {{question.answer}}</span>
                 </div>
             </div>
         </div>

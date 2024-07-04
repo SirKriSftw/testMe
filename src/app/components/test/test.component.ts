@@ -49,5 +49,8 @@ export class TestComponent {
       this.test?.questions?.push(r);
       newQ.destroy();
     })
+    newQ.instance.questionCancelled.subscribe(() => {
+      newQ.destroy();
+    })
   }
 }

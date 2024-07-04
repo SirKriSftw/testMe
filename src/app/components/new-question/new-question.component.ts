@@ -12,6 +12,7 @@ export class NewQuestionComponent {
 
   @Input() testId: number = 0;
   @Output() questionSaved = new EventEmitter<Question>();
+  @Output() questionCancelled = new EventEmitter();
   question: string = "";
   answer: string = "";
   answerIndex: number = -1;
@@ -96,5 +97,10 @@ export class NewQuestionComponent {
       }
     );
     console.log("Saving question");
+  }
+
+  cancelQuestion()
+  {
+    this.questionCancelled.emit();
   }
 }

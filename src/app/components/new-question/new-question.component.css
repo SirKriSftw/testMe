@@ -11,6 +11,14 @@
     flex-direction: column;
 }
 
+.cancel {
+    background-color: red;
+    color: white;
+    border-radius: 20px;
+    border: 0px;
+    width: 20px;
+}
+
 .error {
     color: red;
     margin-bottom: 5px;

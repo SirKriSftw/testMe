@@ -3,6 +3,7 @@ import { TestsService } from '../../services/tests.service';
 import { Test } from '../../models/test.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NewQuestionComponent } from '../new-question/new-question.component';
+import { DialogService } from '../../services/dialog.service';
 
 @Component({
   selector: 'app-test',
@@ -18,6 +19,7 @@ export class TestComponent {
   hideAnswers: boolean = true;
 
   constructor(private testsService: TestsService,
+              private dialogService: DialogService,
               private route: ActivatedRoute,
               private router: Router
   ){}
@@ -56,6 +58,13 @@ export class TestComponent {
     })
     newQ.instance.questionCancelled.subscribe(() => {
       newQ.destroy();
+    })
+  }
+
+  openDialog()
+  {
+    this.dialogService.openDialog().afterClosed().subscribe(r => {
+      console.log(r);
     })
   }
 }

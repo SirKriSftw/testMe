@@ -2,13 +2,21 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
+import { FormsModule } from '@angular/forms';
+import { MatDialogModule } from '@angular/material/dialog';
+
 import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { TestComponent } from './components/test/test.component';
 import { TestsComponent } from './components/tests/tests.component';
-import { FormsModule } from '@angular/forms';
 import { NewQuestionComponent } from './components/new-question/new-question.component';
+import { TakeTestDialogComponent } from './components/take-test-dialog/take-test-dialog.component';
+
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { TestsService } from './services/tests.service';
+import { QuestionsService } from './services/questions.service';
+import { DialogService } from './services/dialog.service';
 
 @NgModule({
   declarations: [
@@ -17,14 +25,21 @@ import { NewQuestionComponent } from './components/new-question/new-question.com
     NavbarComponent,
     TestComponent,
     TestsComponent,
-    NewQuestionComponent
+    NewQuestionComponent,
+    TakeTestDialogComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    MatDialogModule,
   ],
-  providers: [],
+  providers: [
+    provideAnimationsAsync(),
+    TestsService,
+    QuestionsService,
+    DialogService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

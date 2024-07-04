@@ -17,7 +17,7 @@
     <div class = "container">
         <div *ngFor = "let test of displayTests" class = "test">
             <div class = "card">
-                <h1 class = "title">{{test.title}}</h1>
+                <h1 class = "title" (click) = "goToTest(test.id)">{{test.title}}</h1>
                 <i class = "description">{{test.description}}</i>
             </div>
         </div>

@@ -35,3 +35,8 @@
     justify-content: center;
     align-items: center;
 }
+
+.title:hover {
+    color: #730F9B;
+    cursor: pointer;
+}

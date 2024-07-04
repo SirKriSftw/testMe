@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { TestsService } from '../../services/tests.service';
 import { Test } from '../../models/test.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-tests',
@@ -14,7 +15,9 @@ export class TestsComponent {
     searchText: string = "";
     category: string = "0";
 
-    constructor( private testsService: TestsService) {}
+    constructor(private testsService: TestsService,
+                private router: Router
+    ) {}
 
     ngOnInit()
     {
@@ -39,5 +42,10 @@ export class TestsComponent {
 
       this.searchText = "";
       this.category = "0";
+    }
+
+    goToTest(id: number)
+    {
+      this.router.navigate(["/test/" + id])
     }
 }

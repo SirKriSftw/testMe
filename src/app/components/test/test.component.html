@@ -4,6 +4,8 @@
         <i>{{test?.description}}</i>
 
         <div class = "questions">
+            <label>Hide Answers: </label>
+            <input type = "checkbox" [(ngModel)] = "hideAnswers">
             <div class = "question" *ngFor = "let question of test?.questions">
                 {{question.question}}
                 <div class = "choices" *ngFor = "let choice of question.choices">
@@ -12,7 +14,7 @@
                     </div>  
                 </div>
                 <div>
-                    Answer:
+                    <label>Answer: </label>
                     <span class = "answer" [ngClass] = "{ 'spoiler' : hideAnswers }"> {{question.answer}}</span>
                 </div>
             </div>

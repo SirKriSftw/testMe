@@ -64,7 +64,7 @@ export class NewQuestionComponent {
       if(this.choices[this.answerIndex].choice != "") this.answer = this.choices[this.answerIndex].choice;
     }
 
-    if(this.choices.some(c => c.choice = ""))
+    if(this.choices.some(c => c.choice == ""))
     {
       this.warning = "Empty choices are removed before saving."
       this.choices = this.choices.filter(c => c.choice !== "");

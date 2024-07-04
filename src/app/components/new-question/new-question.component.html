@@ -8,7 +8,7 @@
         <div class = "choices">
             <div class = "choice"  *ngFor = "let choice of choices; let i = index; trackBy: trackByFn">
                 <label>{{choiceLabel(i)}}</label>
-                <input placeholder = "Choice" name = "choice{{i}}" id = "choice{{i}}" [(ngModel)] = "choices[i]">
+                <input placeholder = "Choice" name = "choice{{i}}" id = "choice{{i}}" [(ngModel)] = "choices[i].choice">
                 <button class = "input-btn" type = "button" (click) = "removeChoice(i)">-</button>
             </div>
             <button (click) = "addChoice()" type = "button" *ngIf = "choices.length < MAX_CHOICES">Add choice</button>

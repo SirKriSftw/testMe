@@ -34,6 +34,7 @@ export class NewQuestionComponent {
 
   addChoice()
   {
+    if(this.choices.length == 0) this.answer = "";
     this.choices.push(
       {
         choice: ""

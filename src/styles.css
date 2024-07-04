@@ -3,3 +3,32 @@
     margin: 0;
     padding: 0;
 }
+
+html, body {
+    height: 100%;
+    overflow-y: hidden;
+}
+
+/* For horizontal scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #A2BAF6; /* Color of the track */
+}
+
+::-webkit-scrollbar-thumb {
+    background: #0F3595; /* Color of the scrollbar */
+    border-radius: 6px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #0B276F; /* Color of the scrollbar on hover */
+}
+
+/* For vertical scrollbar */
+::-webkit-scrollbar-vertical {
+    width: 8px;
+}
+

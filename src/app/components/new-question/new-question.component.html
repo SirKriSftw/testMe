@@ -1,15 +1,26 @@
 <div class = "question">
+    <div *ngFor = "let error of errors">
+        <p class = "error">{{error}}</p>
+    </div>
+    <p class = "warning">{{warning}}</p>
     <form (ngSubmit) = "saveQuestion()">
         <textarea [(ngModel)]= "question" placeholder = "Question" name = "question"></textarea>
         <div class = "choices">
             <div class = "choice"  *ngFor = "let choice of choices; let i = index; trackBy: trackByFn">
                 <label>{{choiceLabel(i)}}</label>
                 <input placeholder = "Choice" name = "choice{{i}}" id = "choice{{i}}" [(ngModel)] = "choices[i]">
-                <button type = "button" (click) = "removeChoice(i)">-</button>
+                <button class = "input-btn" type = "button" (click) = "removeChoice(i)">-</button>
             </div>
             <button (click) = "addChoice()" type = "button" *ngIf = "choices.length < MAX_CHOICES">Add choice</button>
         </div>
-        <textarea [(ngModel)]= "answer" placeholder = "Answer" name = "answer"></textarea>
+        <textarea *ngIf = "choices.length == 0" [(ngModel)]= "answer" placeholder = "Answer" name = "answer"></textarea>
+        <div class = "mcAnswer" *ngIf = "choices.length != 0">
+            <label>Answer:</label>
+            <select [(ngModel)] = "answerIndex" name = "answer-mc">
+                <option *ngFor = "let choice of choices; let i = index;" [value] = "i">{{choiceLabel(i)}}</option>
+            </select>
+        </div>
         <button class = "submit" type = "submit">Save question</button>
+        
     </form>
 </div>

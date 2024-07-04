@@ -50,6 +50,18 @@ export class TestsService {
           testId: 1,
           question: "Second question",
           answer: "Answer"
+        },
+        {
+          id: 3,
+          testId: 1,
+          question: "Third question",
+          answer: "Answer"
+        },
+        {
+          id: 4,
+          testId: 1,
+          question: "Fourth question",
+          answer: "Answer"
         }
       ]
     },

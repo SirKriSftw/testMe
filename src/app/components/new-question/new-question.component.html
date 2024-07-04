@@ -1,7 +1,10 @@
 <div class = "question">
     <form>
-        <input type = "text" placeholder = "Question">
-        <button>Add choice</button>
-        <input type = "text" placeholder = "Answer">
+        <textarea placeholder = "Question"></textarea>
+        <div class = "choices">
+            <input class = "choice" *ngFor = "let choice of choices; let i = index;" [placeholder] = "choicePlaceholder(i)">
+            <button (click) = "addChoice()" *ngIf = "choices.length < MAX_CHOICES">Add choice</button>
+        </div>
+        <textarea placeholder = "Answer"></textarea>
     </form>
 </div>

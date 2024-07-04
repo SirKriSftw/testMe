@@ -11,7 +11,25 @@
 }
 
 .question form {
+    flex: 1;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+}
+
+.question form textarea {
+    resize: none;
+    padding: 10px;
+    height: 50px;
+    width: 98%;
+}
+
+.choices {
+    margin: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.choice {
+    margin-bottom: 5px;
 }

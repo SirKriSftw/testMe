@@ -1,7 +1,7 @@
 import { Component, ViewChild, ViewContainerRef } from '@angular/core';
 import { TestsService } from '../../services/tests.service';
 import { Test } from '../../models/test.model';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NewQuestionComponent } from '../new-question/new-question.component';
 
 @Component({
@@ -18,7 +18,8 @@ export class TestComponent {
   hideAnswers: boolean = true;
 
   constructor(private testsService: TestsService,
-              private route: ActivatedRoute
+              private route: ActivatedRoute,
+              private router: Router
   ){}
 
   ngOnInit()
@@ -27,6 +28,10 @@ export class TestComponent {
     this.testsService.getTest(this.id).subscribe(
       (r) => {
         this.test = r;
+        if(this.test == undefined)
+        {
+          this.router.navigate(["tests"]);
+        }
       }
     );
   }

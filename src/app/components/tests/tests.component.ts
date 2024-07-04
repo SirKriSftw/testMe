@@ -36,5 +36,8 @@ export class TestsComponent {
       {
         this.displayTests = this.tests.filter(t => t.title.toLowerCase().includes(this.searchText.toLowerCase()) && t.categoryId == parseInt(this.category));
       }
+
+      this.searchText = "";
+      this.category = "0";
     }
 }

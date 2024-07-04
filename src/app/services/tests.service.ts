@@ -60,7 +60,7 @@ export class TestsService {
         {
           id: 2,
           creatorId: 1,
-          categoryId: 1,
+          categoryId: 2,
           title: "Second test",
           description: "This is the second test",
           public: true
@@ -68,14 +68,14 @@ export class TestsService {
         {
           id: 3,
           creatorId: 1,
-          categoryId: 1,
+          categoryId: 3,
           title: "Third test",
           public: true
         },
         {
           id: 4,
           creatorId: 1,
-          categoryId: 1,
+          categoryId: 4,
           title: "Fourth test",
           public: true
         },

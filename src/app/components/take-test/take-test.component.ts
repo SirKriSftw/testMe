@@ -76,7 +76,8 @@ export class TakeTestComponent {
 
   nextQuestion()
   {
-    if(this.preventNext || !this.canNext) return;
+    let possibleNext = this.hasNext();
+    if(this.preventNext || !this.canNext || possibleNext == -1) return;
     if(this.options.perfect && !this.checkAnswer())
     {
       this.preventNext = true;
@@ -89,24 +90,17 @@ export class TakeTestComponent {
     }
     
     this.updateAttemptInfo();
-    if(this.test?.questions)
-    {
-      if(this.questionIndex + 1 < this.test?.questions.length) this.questionIndex++;
-      this.currentQuestion = this.test?.questions[this.questionIndex];
-    }
+    this.jumpToQuestion(possibleNext);
     this.updateButtons();
     this.loadAttemptInfo();
   }
 
   prevQuestion()
   {
-    if(!this.canPrev) return;
+    let possiblePrev = this.hasPrev();
+    if(!this.canPrev || possiblePrev == -1) return;
     this.updateAttemptInfo();
-    if(this.test?.questions)
-    {
-      if(this.questionIndex - 1 >= 0) this.questionIndex--;
-      this.currentQuestion = this.test?.questions[this.questionIndex];
-    }
+    this.jumpToQuestion(possiblePrev);
     this.loadAttemptInfo();
     this.updateButtons();
   }
@@ -115,6 +109,7 @@ export class TakeTestComponent {
   {
     this.updateAttemptInfo();
     this.questionIndex = i;
+    if(this.test?.questions) this.currentQuestion = this.test?.questions[this.questionIndex];
     this.updateButtons();
     this.loadAttemptInfo();
   }
@@ -147,8 +142,6 @@ export class TakeTestComponent {
         disabled: false
       }
     }
-
-
   }
 
   loadAttemptInfo()
@@ -199,6 +192,7 @@ export class TakeTestComponent {
   {
     let possibleIndex = this.hasNext();
     if(possibleIndex == -1) possibleIndex = this.hasPrev();
+    else this.hasPrev();
     return possibleIndex;
   }
 
@@ -208,13 +202,16 @@ export class TakeTestComponent {
     let possibleIndex = nextArray.findIndex(a => !a.disabled);
     if(possibleIndex != -1) possibleIndex = possibleIndex + this.questionIndex + 1;
     else if(this.attemptInfo.length < this.questionCount) possibleIndex = this.attemptInfo.length;
+    if(possibleIndex == -1) this.canNext = false;
     return possibleIndex; 
   }
 
   hasPrev()
   {
     let prevArray = this.attemptInfo.slice(0, this.questionIndex);
-    let possibleIndex = prevArray.findIndex(a => !a.disabled);
+    let possibleIndex = prevArray.reverse().findIndex(a => !a.disabled);
+    if(possibleIndex != -1) possibleIndex = (prevArray.length - 1) - possibleIndex;
+    else this.canPrev = false;
     return possibleIndex; 
   }
 }

@@ -31,6 +31,13 @@ export class TakeTestComponent {
   hours: number = 0;
   minutes: number = 0;
   seconds: number = 0;
+  timeRemaining: number = 0;
+
+  quesitontimer: any;
+  quesitonHours: number = 0;
+  quesitonMinutes: number = 0;
+  quesitonSeconds: number = 0;
+  questionTimeRemaning: number = 0;
 
   constructor(private testsService: TestsService,
               private route: ActivatedRoute
@@ -47,7 +54,11 @@ export class TakeTestComponent {
       }
     );
     this.options = history.state.info;
-    if(this.options.timer) this.startTimer();
+    if(this.options.testTimer)
+    {
+      this.convertToTimer(this.options.testTimer);
+    }
+    if(this.options.timer) this.startTimer(this.options.testTimer != undefined);
     console.log(this.options);
   }
 
@@ -69,23 +80,63 @@ export class TakeTestComponent {
     if(this.longAnswer?.nativeElement !== document.activeElement) this.nextQuestion();
   }
 
-  startTimer() 
+  startTimer(countdown: boolean = false) 
   {
-    this.timer = setInterval(() => {
-      this.seconds++;
-      if(this.seconds === 60)
-      {
-        this.seconds = 0;
-        this.minutes++;
-      }
-      if(this.minutes === 60)
-      {
-        this.minutes = 0;
-        this.hours++;
-      }
-    }, 1000)
+    if(countdown)
+    {
+      this.timer = setInterval(() => {
+        this.seconds--;
+        if(this.timeRemaining <= 0 && this.seconds == 0)
+        {
+          clearInterval(this.timer);
+        }
+        else
+        {
+          this.timeRemaining--;
+          if(this.seconds === 0)
+          {
+            this.seconds = 60;
+            this.minutes--;
+          }
+          if(this.minutes === 0)
+          {
+            this.minutes = 60;
+            this.hours--;
+          }
+        }
+      }, 1000)
+    }
+    else
+    {
+      this.timer = setInterval(() => {
+        this.seconds++;
+        if(this.seconds === 60)
+        {
+          this.seconds = 0;
+          this.minutes++;
+        }
+        if(this.minutes === 60)
+        {
+          this.minutes = 0;
+          this.hours++;
+        }
+      }, 1000)
+    }
   }
 
+  convertToTimer(minutes: number)
+  {
+    this.hours = Math.floor(minutes / 60);
+    this.minutes = minutes % 60;
+    this.seconds = (this.minutes - Math.floor(minutes)) * 100;
+    if(this.seconds > 60)
+    {
+      this.minutes = this.minutes + (this.seconds / 60);
+      this.seconds = this.seconds % 60;
+    }
+
+    console.log(`${this.hours} : ${this.minutes} : ${this.seconds}`);
+  }
 
   choiceLabel(i: number)
   {

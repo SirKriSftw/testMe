@@ -24,13 +24,13 @@
             </div>
             <div class = "column">
                 <label>Show Timer<span class = "hint" matTooltip = "Displays elapsed time timer during test.">?</span>:</label>
-                <label>Test Timer<span class = "hint" matTooltip = "Test auto submits after a set duration.">?</span>:</label>
-                <label>Question Timer<span class = "hint" matTooltip = "Questions auto submit after a set duration. Removes the ability to go back.">?</span>:</label>
+                <label>Test Timer<span class = "hint" matTooltip = "Test auto submits after a set duration (in minutes.seconds).">?</span>:</label>
+                <label>Question Timer<span class = "hint" matTooltip = "Questions auto submit after a set duration (in minutes.seconds). Removes the ability to go back.">?</span>:</label>
             </div>
             <div class = "column">
                 <input type = "checkbox" name = "timer" [(ngModel)] = "timer">
-                <input type = "time" name = "testTimer" [(ngModel)] = "testTimer">
-                <input type = "time" name = "questionTimer" [(ngModel)] = "questionTimer">
+                <input type = "number" name = "testTimer" [(ngModel)] = "testTimer">
+                <input type = "number" name = "questionTimer" [(ngModel)] = "questionTimer">
             </div>
         </div>
         <button type = "submit">Take Test</button>

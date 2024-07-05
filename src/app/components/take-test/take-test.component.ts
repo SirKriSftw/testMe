@@ -27,6 +27,11 @@ export class TakeTestComponent {
   canNext: boolean = true;
   preventNext: boolean = false;
 
+  timer: any;
+  hours: number = 0;
+  minutes: number = 0;
+  seconds: number = 0;
+
   constructor(private testsService: TestsService,
               private route: ActivatedRoute
   ) {}
@@ -42,7 +47,12 @@ export class TakeTestComponent {
       }
     );
     this.options = history.state.info;
+    if(this.options.timer) this.startTimer();
     console.log(this.options);
+  }
+
+  ngOnDestroy() {
+    clearInterval(this.timer);
   }
 
   @HostListener("document:keydown.ArrowLeft", ["$event"])
@@ -57,6 +67,23 @@ export class TakeTestComponent {
   keyNext(e: KeyboardEvent)
   {
     if(this.longAnswer?.nativeElement !== document.activeElement) this.nextQuestion();
+  }
+
+  startTimer() 
+  {
+    this.timer = setInterval(() => {
+      this.seconds++;
+      if(this.seconds === 60)
+      {
+        this.seconds = 0;
+        this.minutes++;
+      }
+      if(this.minutes === 60)
+      {
+        this.minutes = 0;
+        this.hours++;
+      }
+    }, 1000)
   }
 
 

@@ -59,3 +59,71 @@
     display: flex;
     justify-content: space-between;
 }
+
+.pagination button {
+    background-color: #0F379B;
+    color: #A2BAF6;
+    border: 0;
+    padding: 10px;
+    transition: background-color 0.3s;
+}
+
+.btn {
+    display: flex;
+    -webkit-user-select: none; /* Safari */
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* IE/Edge */
+    user-select: none; /* Standard */
+}
+
+.left {
+    border-top: 18px solid transparent;
+    border-bottom: 18px solid transparent;
+    border-right: 25px solid #0F379B;
+    transition: border 0.3s;
+}
+
+.right {
+    border-top: 18px solid transparent;
+    border-bottom: 18px solid transparent;
+    border-left: 25px solid #0F379B;
+    transition: border 0.3s;
+}
+
+.btn:hover button {
+    background-color: #2D0F9B;
+    cursor: pointer;
+}
+
+.btn:hover .left {
+    border-right: 25px solid #2D0F9B;
+    cursor: pointer;
+}
+
+
+.btn:hover .right {
+    border-left: 25px solid #2D0F9B;
+    cursor: pointer;
+}
+
+.disabled {
+    -webkit-user-select: none; /* Safari */
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* IE/Edge */
+    user-select: none; /* Standard */
+}
+
+.disabled button {
+    background-color: grey;
+}
+
+.disabled .point {
+    border: 0;
+}
+
+.progress {
+    border: 2px #730F9B solid;
+    background-color: #0F379B;
+    color: #A2BAF6; 
+    padding: 10px;
+}

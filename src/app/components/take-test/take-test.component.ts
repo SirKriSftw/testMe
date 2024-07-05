@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, HostListener, Input } from '@angular/core';
 import { Test } from '../../models/test.model';
 import { TestsService } from '../../services/tests.service';
 import { ActivatedRoute } from '@angular/router';
@@ -16,6 +16,9 @@ export class TakeTestComponent {
   id: number = -1;
   questionIndex = 0;
   currentQuestion?: Question = undefined;
+  questionCount: number = 0;
+  canPrev: boolean = false;
+  canNext: boolean = true;
 
   constructor(private testsService: TestsService,
               private route: ActivatedRoute
@@ -28,11 +31,27 @@ export class TakeTestComponent {
       (r) => {
         this.test = r;
         if(this.test?.questions) this.currentQuestion = this.test?.questions[this.questionIndex];
+        if(this.test?.questions) this.questionCount = this.test.questions.length;
       }
     );
     this.options = history.state.info;
     console.log(this.options);
   }
+
+  @HostListener("document:keydown.ArrowLeft", ["$event"])
+  @HostListener("document:keydown.ArrowDown", ["$event"])
+  keyPrev(e: KeyboardEvent)
+  {
+    this.prevQuestion();
+  }
+
+  @HostListener("document:keydown.ArrowRight", ["$event"])
+  @HostListener("document:keydown.ArrowUp", ["$event"])
+  keyNext(e: KeyboardEvent)
+  {
+    this.nextQuestion();
+  }
+
 
   choiceLabel(i: number)
   {
@@ -50,7 +69,7 @@ export class TakeTestComponent {
       if(this.questionIndex + 1 < this.test?.questions.length) this.questionIndex++;
       this.currentQuestion = this.test?.questions[this.questionIndex];
     }
-    
+    this.updateButtons();
   }
 
   prevQuestion()
@@ -60,5 +79,12 @@ export class TakeTestComponent {
         if(this.questionIndex - 1 >= 0) this.questionIndex--;
         this.currentQuestion = this.test?.questions[this.questionIndex];
       }
+    this.updateButtons();
+  }
+
+  updateButtons()
+  {
+    this.questionIndex == 0 ? this.canPrev = false : this.canPrev = true;
+    this.questionIndex < this.questionCount - 1 ? this.canNext = true : this.canNext = false;
   }
 }

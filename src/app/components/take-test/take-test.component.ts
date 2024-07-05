@@ -5,6 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Question } from '../../models/question.model';
 import { Attempt } from '../../models/attempt.model';
 
+
 @Component({
   selector: 'app-take-test',
   templateUrl: './take-test.component.html',
@@ -27,18 +28,6 @@ export class TakeTestComponent {
   canNext: boolean = true;
   preventNext: boolean = false;
 
-  timer: any;
-  hours: number = 0;
-  minutes: number = 0;
-  seconds: number = 0;
-  timeRemaining: number = 0;
-
-  quesitontimer: any;
-  quesitonHours: number = 0;
-  quesitonMinutes: number = 0;
-  quesitonSeconds: number = 0;
-  questionTimeRemaning: number = 0;
-
   constructor(private testsService: TestsService,
               private route: ActivatedRoute
   ) {}
@@ -54,18 +43,8 @@ export class TakeTestComponent {
       }
     );
     this.options = history.state.info;
-    if(this.options.testTimer)
-    {
-      this.timeRemaining = this.options.testTimer;
-      this.convertToTimer(this.options.testTimer);
-    }
-    if(this.options.timer) this.startTimer(this.options.testTimer != undefined);
-    console.log(this.options);
   }
 
-  ngOnDestroy() {
-    clearInterval(this.timer);
-  }
 
   @HostListener("document:keydown.ArrowLeft", ["$event"])
   @HostListener("document:keydown.ArrowDown", ["$event"])
@@ -81,70 +60,6 @@ export class TakeTestComponent {
     if(this.longAnswer?.nativeElement !== document.activeElement) this.nextQuestion();
   }
 
-  startTimer(countdown: boolean = false) 
-  {
-    if(countdown)
-    {
-      this.timer = setInterval(() => {
-        if(this.timeRemaining < 1 && this.seconds <= 0)
-        {
-          clearInterval(this.timer);
-        }
-        else
-        {
-          if(this.seconds <= 0 && this.minutes >= 1)
-          {
-            this.seconds = 60;
-            this.minutes--;
-            this.timeRemaining--;
-          }
-          if(this.minutes <= 0 && this.hours >= 1)
-          {
-            this.minutes = 60;
-            this.hours--;
-          }
-          this.seconds--;
-        }
-      }, 1000)
-    }
-    else
-    {
-      this.timer = setInterval(() => {
-        this.seconds++;
-        if(this.seconds === 60)
-        {
-          this.seconds = 0;
-          this.minutes++;
-        }
-        if(this.minutes === 60)
-        {
-          this.minutes = 0;
-          this.hours++;
-        }
-      }, 1000)
-    }
-  }
-
-  convertToTimer(minutes: number)
-  {
-    this.hours = Math.floor(minutes / 60);
-    this.minutes = Math.floor(minutes % 60);
-    this.seconds = (minutes % 60 - Math.floor(minutes % 60)) * 100;
-    if(this.minutes > 60)
-    {
-      this.hours = this.hours + Math.floor(this.minutes / 60);
-      this.minutes = this.minutes % 60;
-    }
-
-    if(this.seconds > 60)
-    {
-      this.minutes = this.minutes + Math.floor(this.seconds / 60);
-      this.seconds = this.seconds % 60;
-    }
-    this.minutes = Math.round(this.minutes);
-    this.seconds = Math.round(this.seconds);
-    console.log(`${this.hours} : ${this.minutes} : ${this.seconds}`);
-  }
 
   choiceLabel(i: number)
   {

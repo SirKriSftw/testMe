@@ -1,9 +1,13 @@
 <div class = "container">
     <div class = "timer" *ngIf = "this.options.timer">
-        {{this.hours | number: '2.0-0'}} : {{this.minutes | number: '2.0-0'}} : {{this.seconds | number: '2.0-0'}}
+        <app-timer [timeRemaining] = "this.options.testTimer ? this.options.testTimer : 0" [countdown] = "this.options.testTimer"></app-timer>
     </div>
-    <div class = "question">
-        <div>
+
+    <div class = "question-card">
+        <div class = "questionTimer" *ngIf = "this.options.questionTimer">
+            <app-timer [timeRemaining] = "this.options.questionTimer" [countdown] = "true"></app-timer>
+        </div>
+        <div class = "question">
             <span class = "number">{{questionIndex + 1}}.</span>
             {{currentQuestion?.question}}
         </div>

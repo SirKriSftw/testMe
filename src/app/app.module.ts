@@ -19,6 +19,7 @@ import { TestsService } from './services/tests.service';
 import { QuestionsService } from './services/questions.service';
 import { DialogService } from './services/dialog.service';
 import { TakeTestComponent } from './components/take-test/take-test.component';
+import { TimerComponent } from './components/timer/timer.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { TakeTestComponent } from './components/take-test/take-test.component';
     TestsComponent,
     NewQuestionComponent,
     TakeTestDialogComponent,
-    TakeTestComponent
+    TakeTestComponent,
+    TimerComponent
   ],
   imports: [
     BrowserModule,

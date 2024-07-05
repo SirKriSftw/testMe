@@ -19,7 +19,8 @@
     font-weight: bold;
 }
 
-.question {
+
+.question-card {
     background-color: #ffffff;
     margin-bottom: 20px;
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
@@ -36,10 +37,29 @@
     justify-content: space-between;
 }
 
-.question:hover {
+.question-card:hover {
     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
 }
 
+.questionTimer {
+    padding: 10px;
+    margin-bottom: 10px;
+    flex: 0;
+    background-color: #0F379B;
+    color: #A2BAF6;
+    border: 2px black solid;
+    border-radius: 5px;
+
+    width: fit-content;
+}
+
+.question {
+    flex: 1;
+}
+
+.choices {
+    flex: 1;
+}
 
 .choice {
     display: flex;

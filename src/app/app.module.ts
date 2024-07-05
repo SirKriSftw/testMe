@@ -18,6 +18,7 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import { TestsService } from './services/tests.service';
 import { QuestionsService } from './services/questions.service';
 import { DialogService } from './services/dialog.service';
+import { TakeTestComponent } from './components/take-test/take-test.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { DialogService } from './services/dialog.service';
     TestComponent,
     TestsComponent,
     NewQuestionComponent,
-    TakeTestDialogComponent
+    TakeTestDialogComponent,
+    TakeTestComponent
   ],
   imports: [
     BrowserModule,

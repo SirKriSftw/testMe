@@ -11,6 +11,10 @@ html, body {
     overflow-y: hidden;
 }
 
+body.purple-background {
+    background-color: #B4A2F6; 
+}
+
 .wrapper {
     width: 100%;
     height: 100%;

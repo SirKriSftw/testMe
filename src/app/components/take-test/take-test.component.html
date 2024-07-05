@@ -1,6 +1,6 @@
 <div class = "container">
-    <div class = "timer">
-        {{this.hours}} : {{this.minutes}} : {{this.seconds}}
+    <div class = "timer" *ngIf = "this.options.timer">
+        {{this.hours | number: '2.0-0'}} : {{this.minutes | number: '2.0-0'}} : {{this.seconds | number: '2.0-0'}}
     </div>
     <div class = "question">
         <div>

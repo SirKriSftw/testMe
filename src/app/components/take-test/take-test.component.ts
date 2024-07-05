@@ -56,6 +56,7 @@ export class TakeTestComponent {
     this.options = history.state.info;
     if(this.options.testTimer)
     {
+      this.timeRemaining = this.options.testTimer;
       this.convertToTimer(this.options.testTimer);
     }
     if(this.options.timer) this.startTimer(this.options.testTimer != undefined);
@@ -85,24 +86,24 @@ export class TakeTestComponent {
     if(countdown)
     {
       this.timer = setInterval(() => {
-        this.seconds--;
-        if(this.timeRemaining <= 0 && this.seconds == 0)
+        if(this.timeRemaining < 1 && this.seconds <= 0)
         {
           clearInterval(this.timer);
         }
         else
         {
-          this.timeRemaining--;
-          if(this.seconds === 0)
+          if(this.seconds <= 0 && this.minutes >= 1)
           {
             this.seconds = 60;
             this.minutes--;
+            this.timeRemaining--;
           }
-          if(this.minutes === 0)
+          if(this.minutes <= 0 && this.hours >= 1)
           {
             this.minutes = 60;
             this.hours--;
           }
+          this.seconds--;
         }
       }, 1000)
     }
@@ -128,13 +129,20 @@ export class TakeTestComponent {
   {
     this.hours = Math.floor(minutes / 60);
     this.minutes = Math.floor(minutes % 60);
-    this.seconds = (minutes % 60 - Math.floor(minutes)) * 100;
-    if(this.seconds > 60)
+    this.seconds = (minutes % 60 - Math.floor(minutes % 60)) * 100;
+    if(this.minutes > 60)
     {
-      this.minutes = this.minutes + (this.seconds / 60);
-      this.seconds = this.seconds % 60;
+      this.hours = this.hours + Math.floor(this.minutes / 60);
+      this.minutes = this.minutes % 60;
     }
 
+    if(this.seconds > 60)
+    {
+      this.minutes = this.minutes + Math.floor(this.seconds / 60);
+      this.seconds = this.seconds % 60;
+    }
+    this.minutes = Math.round(this.minutes);
+    this.seconds = Math.round(this.seconds);
     console.log(`${this.hours} : ${this.minutes} : ${this.seconds}`);
   }
 

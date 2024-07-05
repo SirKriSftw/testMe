@@ -76,7 +76,7 @@ export class TakeTestComponent {
 
   nextQuestion()
   {
-    if(this.preventNext) return;
+    if(this.preventNext || !this.canNext) return;
     if(this.options.perfect && !this.checkAnswer())
     {
       this.preventNext = true;
@@ -100,14 +100,15 @@ export class TakeTestComponent {
 
   prevQuestion()
   {
+    if(!this.canPrev) return;
     this.updateAttemptInfo();
     if(this.test?.questions)
-      {
-        if(this.questionIndex - 1 >= 0) this.questionIndex--;
-        this.currentQuestion = this.test?.questions[this.questionIndex];
-      }
-    this.updateButtons();
+    {
+      if(this.questionIndex - 1 >= 0) this.questionIndex--;
+      this.currentQuestion = this.test?.questions[this.questionIndex];
+    }
     this.loadAttemptInfo();
+    this.updateButtons();
   }
 
   updateButtons()
@@ -132,7 +133,7 @@ export class TakeTestComponent {
     if(this.attemptInfo[this.questionIndex])
     {
       this.currentAnswer = this.attemptInfo[this.questionIndex].selectedAnswer;
-      if (this.attemptInfo[this.questionIndex].timeRemaining)
+      if (this.attemptInfo[this.questionIndex].timeRemaining != undefined)
       {
         
         this.currentQuestionTime = this.attemptInfo[this.questionIndex].timeRemaining;

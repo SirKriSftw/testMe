@@ -76,6 +76,7 @@ export class TakeTestComponent {
 
   nextQuestion()
   {
+    this.updateAttemptInfo();
     let possibleNext = this.hasNext();
     if(this.preventNext || !this.canNext || possibleNext == -1) return;
     if(this.options.perfect && !this.checkAnswer())
@@ -88,8 +89,6 @@ export class TakeTestComponent {
       
       return;
     }
-    
-    this.updateAttemptInfo();
     this.jumpToQuestion(possibleNext);
     this.updateButtons();
     this.loadAttemptInfo();
@@ -97,9 +96,9 @@ export class TakeTestComponent {
 
   prevQuestion()
   {
+    this.updateAttemptInfo();
     let possiblePrev = this.hasPrev();
     if(!this.canPrev || possiblePrev == -1) return;
-    this.updateAttemptInfo();
     this.jumpToQuestion(possiblePrev);
     this.loadAttemptInfo();
     this.updateButtons();

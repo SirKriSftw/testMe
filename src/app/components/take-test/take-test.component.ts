@@ -98,6 +98,7 @@ export class TakeTestComponent {
 
   nextQuestion()
   {
+    if(this.preventNext) return;
     if(this.options.perfect && !this.checkAnswer())
     {
       this.preventNext = true;
@@ -158,4 +159,5 @@ export class TakeTestComponent {
     if(this.currentQuestion?.choices != null || this.options.exact) return this.currentAnswer?.toLowerCase().trim() == this.currentQuestion?.answer.toLowerCase().trim();
     else return undefined;
   }
+
 }

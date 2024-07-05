@@ -33,7 +33,7 @@
                 {{questionIndex + 1}} / {{test?.questions?.length}}
             </div>
         </div>
-        <div [ngClass] = "{'disabled' : !canNext, 'btn' : canNext}" (click) = "nextQuestion()">            
+        <div [ngClass] = "{'disabled' : !canNext, 'btn' : canNext, 'preventNext' : preventNext}" (click) = "nextQuestion()">            
             <button >Next >>></button>
             <div class = "point right"> </div>
         </div>

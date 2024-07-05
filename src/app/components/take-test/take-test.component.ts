@@ -22,8 +22,10 @@ export class TakeTestComponent {
   currentQuestion?: Question = undefined;
   currentAnswer?: string = undefined;
   questionCount: number = 0;
+
   canPrev: boolean = false;
   canNext: boolean = true;
+  preventNext: boolean = false;
 
   constructor(private testsService: TestsService,
               private route: ActivatedRoute
@@ -69,6 +71,17 @@ export class TakeTestComponent {
 
   nextQuestion()
   {
+    if(this.options.perfect && !this.checkAnswer())
+    {
+      this.preventNext = true;
+
+      setTimeout(() => {
+        this.preventNext = false;
+      }, 1000)
+      
+      return;
+    }
+    
     this.updateAttemptInfo();
     if(this.test?.questions)
     {

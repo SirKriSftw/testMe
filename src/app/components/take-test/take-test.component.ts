@@ -127,8 +127,8 @@ export class TakeTestComponent {
   convertToTimer(minutes: number)
   {
     this.hours = Math.floor(minutes / 60);
-    this.minutes = minutes % 60;
-    this.seconds = (this.minutes - Math.floor(minutes)) * 100;
+    this.minutes = Math.floor(minutes % 60);
+    this.seconds = (minutes % 60 - Math.floor(minutes)) * 100;
     if(this.seconds > 60)
     {
       this.minutes = this.minutes + (this.seconds / 60);

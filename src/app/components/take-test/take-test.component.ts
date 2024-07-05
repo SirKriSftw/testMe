@@ -103,7 +103,6 @@ export class TakeTestComponent {
     {
       selectedAnswer: this.currentAnswer,
       isCorrect: this.checkAnswer(),
-      isMC: this.currentQuestion?.choices != null
     }
   }
 

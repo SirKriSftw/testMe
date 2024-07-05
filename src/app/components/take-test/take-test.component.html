@@ -6,11 +6,15 @@
         </div>
         <div class = "choices" *ngFor = "let choice of currentQuestion?.choices; let i = index;">
             <div class = "choice">
+                <input type = "radio" id = "choice{{i}}" name = "choices" value = "{{choice.choice}}" [(ngModel)] = "currentAnswer">
                 <label>{{choiceLabel(i)}}</label>
                 <div class = "choice">
                     {{choice.choice}}
                 </div> 
             </div> 
+        </div>
+        <div *ngIf = "!currentQuestion?.choices">
+            <textarea #longAnswer class = "long-answer" [(ngModel)] = "currentAnswer"></textarea>
         </div>
         <div class = "answer" *ngIf = "options.practice">
             <label>Answer: </label>

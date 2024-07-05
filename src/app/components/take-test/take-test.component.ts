@@ -1,8 +1,9 @@
-import { Component, HostListener, Input } from '@angular/core';
+import { Component, ElementRef, HostListener, ViewChild } from '@angular/core';
 import { Test } from '../../models/test.model';
 import { TestsService } from '../../services/tests.service';
 import { ActivatedRoute } from '@angular/router';
 import { Question } from '../../models/question.model';
+import { Attempt } from '../../models/attempt.model';
 
 @Component({
   selector: 'app-take-test',
@@ -11,11 +12,15 @@ import { Question } from '../../models/question.model';
 })
 export class TakeTestComponent {
 
+  @ViewChild('longAnswer') longAnswer?: ElementRef;
+
   options: any = {};
+  attemptInfo: Attempt[] = [];
   test?: Test = undefined;
   id: number = -1;
   questionIndex = 0;
   currentQuestion?: Question = undefined;
+  currentAnswer?: string = undefined;
   questionCount: number = 0;
   canPrev: boolean = false;
   canNext: boolean = true;
@@ -42,14 +47,14 @@ export class TakeTestComponent {
   @HostListener("document:keydown.ArrowDown", ["$event"])
   keyPrev(e: KeyboardEvent)
   {
-    this.prevQuestion();
+    if(this.longAnswer?.nativeElement !== document.activeElement) this.prevQuestion();
   }
 
   @HostListener("document:keydown.ArrowRight", ["$event"])
   @HostListener("document:keydown.ArrowUp", ["$event"])
   keyNext(e: KeyboardEvent)
   {
-    this.nextQuestion();
+    if(this.longAnswer?.nativeElement !== document.activeElement) this.nextQuestion();
   }
 
 
@@ -64,27 +69,54 @@ export class TakeTestComponent {
 
   nextQuestion()
   {
+    this.updateAttemptInfo();
     if(this.test?.questions)
     {
       if(this.questionIndex + 1 < this.test?.questions.length) this.questionIndex++;
       this.currentQuestion = this.test?.questions[this.questionIndex];
     }
     this.updateButtons();
+    this.loadAttemptInfo();
   }
 
   prevQuestion()
   {
+    this.updateAttemptInfo();
     if(this.test?.questions)
       {
         if(this.questionIndex - 1 >= 0) this.questionIndex--;
         this.currentQuestion = this.test?.questions[this.questionIndex];
       }
     this.updateButtons();
+    this.loadAttemptInfo();
   }
 
   updateButtons()
   {
     this.questionIndex == 0 ? this.canPrev = false : this.canPrev = true;
     this.questionIndex < this.questionCount - 1 ? this.canNext = true : this.canNext = false;
+  }
+
+  updateAttemptInfo()
+  {
+    this.attemptInfo[this.questionIndex] = 
+    {
+      selectedAnswer: this.currentAnswer,
+      isCorrect: this.checkAnswer(),
+      isMC: this.currentQuestion?.choices != null
+    }
+  }
+
+  loadAttemptInfo()
+  {
+    if(this.attemptInfo[this.questionIndex]) this.currentAnswer = this.attemptInfo[this.questionIndex].selectedAnswer;
+    else this.currentAnswer = "";
+    
+  }
+
+  checkAnswer()
+  {
+    if(this.currentQuestion?.choices != null || this.options.exact) return this.currentAnswer?.toLowerCase().trim() == this.currentQuestion?.answer.toLowerCase().trim();
+    else return undefined;
   }
 }

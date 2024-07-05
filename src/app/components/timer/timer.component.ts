@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output, output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Timer } from '../../models/timer.model';
 
 @Component({
@@ -28,6 +28,13 @@ export class TimerComponent {
     clearInterval(this.timerInterval);
   }
 
+  resetTimer()
+  {
+    clearInterval(this.timerInterval);
+    this.timer = this.convertToTimer(this.timeRemaining);
+    this.startTimer(this.countdown);
+  }
+
   convertToTimer(minutes: number) : Timer
   {
     let tempTimer = {
@@ -52,8 +59,6 @@ export class TimerComponent {
     }
     tempTimer.minutes = Math.round(tempTimer.minutes);
     tempTimer.seconds = Math.round(tempTimer.seconds);
-
-    console.log(`${tempTimer.hours} : ${tempTimer.minutes} : ${tempTimer.seconds}`);
 
     return tempTimer;
   }
@@ -82,6 +87,7 @@ export class TimerComponent {
             this.timer.hours--;
           }
           this.timer.seconds--;
+          this.timeRemaining  = parseFloat((this.timeRemaining - 0.01).toFixed(2));
         }
       }, 1000)
     }

@@ -1,11 +1,18 @@
 <div class = "container">
     <div class = "timer" *ngIf = "this.options.timer">
-        <app-timer [timeRemaining] = "this.options.testTimer ? this.options.testTimer : 0" [countdown] = "this.options.testTimer"></app-timer>
+        <app-timer 
+        (timerFinish) = "endTest()"
+        [timeRemaining] = "this.options.testTimer ? this.options.testTimer : 0" 
+        [countdown] = "this.options.testTimer">
+        </app-timer>
     </div>
 
     <div class = "question-card">
         <div class = "questionTimer" *ngIf = "this.options.questionTimer">
-            <app-timer [timeRemaining] = "this.options.questionTimer" [countdown] = "true"></app-timer>
+            <app-timer #currentQuestionTimer 
+            (timerFinish) = "disableAnswers()"
+            [timeRemaining] = "this.currentQuestionTime ? this.currentQuestionTime : this.options.questionTimer" 
+            [countdown] = "true"></app-timer>
         </div>
         <div class = "question">
             <span class = "number">{{questionIndex + 1}}.</span>

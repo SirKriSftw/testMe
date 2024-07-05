@@ -4,6 +4,7 @@ import { TestsService } from '../../services/tests.service';
 import { ActivatedRoute } from '@angular/router';
 import { Question } from '../../models/question.model';
 import { Attempt } from '../../models/attempt.model';
+import { TimerComponent } from '../timer/timer.component';
 
 
 @Component({
@@ -14,6 +15,7 @@ import { Attempt } from '../../models/attempt.model';
 export class TakeTestComponent {
 
   @ViewChild('longAnswer') longAnswer?: ElementRef;
+  @ViewChild('currentQuestionTimer') currentQuestionTimer?: TimerComponent;
 
   options: any = {};
   attemptInfo: Attempt[] = [];
@@ -21,6 +23,7 @@ export class TakeTestComponent {
   id: number = -1;
   questionIndex = 0;
   currentQuestion?: Question = undefined;
+  currentQuestionTime?: number = undefined;
   currentAnswer?: string = undefined;
   questionCount: number = 0;
 
@@ -43,6 +46,7 @@ export class TakeTestComponent {
       }
     );
     this.options = history.state.info;
+    if(this.options.questionTimer) this.currentQuestionTime = this.options.questionTimer;
   }
 
 
@@ -114,24 +118,53 @@ export class TakeTestComponent {
 
   updateAttemptInfo()
   {
+
     this.attemptInfo[this.questionIndex] = 
     {
       selectedAnswer: this.currentAnswer,
       isCorrect: this.checkAnswer(),
+      timeRemaining: this.currentQuestionTimer ? this.currentQuestionTimer?.timeRemaining : undefined
     }
   }
 
   loadAttemptInfo()
   {
-    if(this.attemptInfo[this.questionIndex]) this.currentAnswer = this.attemptInfo[this.questionIndex].selectedAnswer;
-    else this.currentAnswer = "";
-    
+    if(this.attemptInfo[this.questionIndex])
+    {
+      this.currentAnswer = this.attemptInfo[this.questionIndex].selectedAnswer;
+      if (this.attemptInfo[this.questionIndex].timeRemaining)
+      {
+        
+        this.currentQuestionTime = this.attemptInfo[this.questionIndex].timeRemaining;
+        this.currentQuestionTimer!.timeRemaining = this.currentQuestionTime!;
+        this.currentQuestionTimer?.resetTimer();
+      } 
+    }
+    else
+    {
+      this.currentAnswer = "";
+      if(this.options.questionTimer)
+      {
+        this.currentQuestionTimer!.timeRemaining = this.options.questionTimer;
+        this.currentQuestionTimer?.resetTimer();
+      }
+    }
   }
 
   checkAnswer()
   {
     if(this.currentQuestion?.choices != null || this.options.exact) return this.currentAnswer?.toLowerCase().trim() == this.currentQuestion?.answer.toLowerCase().trim();
     else return undefined;
+  }
+
+  endTest()
+  {
+    console.log("test over");
+  }
+
+  disableAnswers()
+  {
+
   }
 
 }

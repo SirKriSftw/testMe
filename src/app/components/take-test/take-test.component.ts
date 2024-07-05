@@ -197,13 +197,24 @@ export class TakeTestComponent {
 
   possibleQuestion()
   {
-    let nextArray = this.attemptInfo.slice(this.questionIndex + 1);
-    let prevArray = this.attemptInfo.slice(0, this.questionIndex);
-    let possibleIndex = nextArray.findIndex(a => !a.disabled);
-    if(possibleIndex != -1) possibleIndex = possibleIndex + this.questionIndex + 1; 
-    else if(this.attemptInfo.length < this.questionCount) possibleIndex = this.attemptInfo.length;
-    else possibleIndex = prevArray.findIndex(a => !a.disabled);
+    let possibleIndex = this.hasNext();
+    if(possibleIndex == -1) possibleIndex = this.hasPrev();
     return possibleIndex;
   }
 
+  hasNext()
+  {
+    let nextArray = this.attemptInfo.slice(this.questionIndex + 1);
+    let possibleIndex = nextArray.findIndex(a => !a.disabled);
+    if(possibleIndex != -1) possibleIndex = possibleIndex + this.questionIndex + 1;
+    else if(this.attemptInfo.length < this.questionCount) possibleIndex = this.attemptInfo.length;
+    return possibleIndex; 
+  }
+
+  hasPrev()
+  {
+    let prevArray = this.attemptInfo.slice(0, this.questionIndex);
+    let possibleIndex = prevArray.findIndex(a => !a.disabled);
+    return possibleIndex; 
+  }
 }

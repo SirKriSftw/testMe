@@ -10,7 +10,7 @@
     <div class = "question-card">
         <div class = "questionTimer" *ngIf = "this.options.questionTimer">
             <app-timer #currentQuestionTimer 
-            (timerFinish) = "disableAnswers()"
+            (timerFinish) = "forceMove()"
             [timeRemaining] = "this.currentQuestionTime ? this.currentQuestionTime : this.options.questionTimer" 
             [countdown] = "true"></app-timer>
         </div>

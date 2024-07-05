@@ -1,6 +1,38 @@
-<h2>Dialog Test</h2>
+<h2>Test Taking Options</h2>
 <mat-dialog-content>
-    <form>
-        <input placeholder = "test" [(ngModel)] = "test" name = "test">
+    <form class = "dialog-form" (ngSubmit) = "takeTest()">
+        <div class = "options">
+            <div class = "column">
+                <label>Practice<span class = "hint" matTooltip = "Spoiler answer will be given with quesiton.">?</span>:</label>
+                <label>Perfect<span class = "hint" matTooltip = "Cannot proceed to next question until answer is correct.">?</span>:</label>
+                <label>Endless<span class = "hint" matTooltip = "Test will not end until the 'end' button is pressed">?</span>:</label>
+            </div>
+            <div class = "column">
+                <input type = "checkbox" name = "practice" [(ngModel)] = "practice">
+                <input type = "checkbox" name = "perfect" [(ngModel)] = "perfect">
+                <input type = "checkbox" name = "endless" [(ngModel)] = "endless">
+            </div>
+            <div class = "column">
+                <label>Exact<span class = "hint" matTooltip = "Written in answers must match exactly. (Case insensitive)">?</span>:</label>
+                <label>Random Order<span class = "hint" matTooltip = "Randomize the order of the quesitons.">?</span>:</label>
+                <label>Random Choices<span class = "hint" matTooltip = "Randomize the order of the choices.">?</span>:</label>
+            </div>
+            <div class = "column">
+                <input type = "checkbox" name = "exact" [(ngModel)] = "exact">
+                <input type = "checkbox" name = "randomOrder" [(ngModel)] = "randomOrder">
+                <input type = "checkbox" name = "randomChoices" [(ngModel)] = "randomChoices">
+            </div>
+            <div class = "column">
+                <label>Show Timer<span class = "hint" matTooltip = "Displays elapsed time timer during test.">?</span>:</label>
+                <label>Test Timer<span class = "hint" matTooltip = "Test auto submits after a set duration.">?</span>:</label>
+                <label>Question Timer<span class = "hint" matTooltip = "Questions auto submit after a set duration. Removes the ability to go back.">?</span>:</label>
+            </div>
+            <div class = "column">
+                <input type = "checkbox" name = "timer" [(ngModel)] = "timer">
+                <input type = "time" name = "testTimer" [(ngModel)] = "testTimer">
+                <input type = "time" name = "questionTimer" [(ngModel)] = "questionTimer">
+            </div>
+        </div>
+        <button type = "submit">Take Test</button>
     </form>
 </mat-dialog-content>

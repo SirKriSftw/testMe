@@ -1,0 +1,35 @@
+.dialog-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.dialog-form button {
+    margin-top: 10px;
+}
+
+.options {
+    display: flex;
+    justify-content: space-around;
+}
+
+.column {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.column input[type = "checkbox"] {
+    margin-left: -120px;
+}
+
+.column input[type = "time"] {
+    margin-left: -80px;
+}
+
+
+.hint {
+    vertical-align: super;
+    font-size: smaller;
+    cursor: help;
+}

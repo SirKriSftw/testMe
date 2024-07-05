@@ -4,6 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { FormsModule } from '@angular/forms';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
@@ -33,6 +34,7 @@ import { DialogService } from './services/dialog.service';
     AppRoutingModule,
     FormsModule,
     MatDialogModule,
+    MatTooltipModule,
   ],
   providers: [
     provideAnimationsAsync(),

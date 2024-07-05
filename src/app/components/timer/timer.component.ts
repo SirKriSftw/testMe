@@ -71,7 +71,6 @@ export class TimerComponent {
         if(this.timeRemaining < 1 && this.timer.seconds <= 0)
         {
           this.timerFinish.emit();
-          clearInterval(this.timerInterval);
         }
         else
         {

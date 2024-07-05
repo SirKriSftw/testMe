@@ -119,7 +119,6 @@ export class TakeTestComponent {
 
   updateAttemptInfo()
   {
-
     this.attemptInfo[this.questionIndex] = 
     {
       selectedAnswer: this.currentAnswer,
@@ -133,9 +132,8 @@ export class TakeTestComponent {
     if(this.attemptInfo[this.questionIndex])
     {
       this.currentAnswer = this.attemptInfo[this.questionIndex].selectedAnswer;
-      if (this.attemptInfo[this.questionIndex].timeRemaining != undefined)
+      if (this.currentQuestionTimer)
       {
-        
         this.currentQuestionTime = this.attemptInfo[this.questionIndex].timeRemaining;
         this.currentQuestionTimer!.timeRemaining = this.currentQuestionTime!;
         this.currentQuestionTimer?.resetTimer();
@@ -144,12 +142,13 @@ export class TakeTestComponent {
     else
     {
       this.currentAnswer = "";
-      if(this.options.questionTimer)
+      if(this.currentQuestionTimer)
       {
         this.currentQuestionTimer!.timeRemaining = this.options.questionTimer;
         this.currentQuestionTimer?.resetTimer();
       }
     }
+    console.log(this.currentQuestionTimer!.timeRemaining);
   }
 
   checkAnswer()
@@ -165,7 +164,7 @@ export class TakeTestComponent {
 
   disableAnswers()
   {
-
+    if(this.canNext) this.nextQuestion();
   }
 
 }

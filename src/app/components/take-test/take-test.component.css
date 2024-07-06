@@ -181,6 +181,11 @@
     padding: 10px;
 }
 
+.infinity {
+    font-family: Verdana, sans-serif;
+
+}
+
 
 .preventNext {
     display: flex;

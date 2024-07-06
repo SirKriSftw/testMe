@@ -44,7 +44,7 @@
         </div>
         <div>
             <div class = "progress">
-                {{questionIndex + 1}} / {{this.questionCount}}
+                {{questionIndex + 1}} / <span *ngIf = "this.options.endless" class = "infinity">∞</span><span *ngIf = "!this.options.endless">{{this.questionCount}}</span>
             </div>
         </div>
         <div [ngClass] = "{'disabled' : !canNext, 'btn' : canNext && !preventNext, 'preventNext' : preventNext}" (click) = "nextQuestion()">            

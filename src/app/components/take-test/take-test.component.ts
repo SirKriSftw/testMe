@@ -6,6 +6,7 @@ import { Question } from '../../models/question.model';
 import { Attempt } from '../../models/attempt.model';
 import { TimerComponent } from '../timer/timer.component';
 import { Choice } from '../../models/choice.model';
+import { DialogService } from '../../services/dialog.service';
 
 
 @Component({
@@ -35,6 +36,7 @@ export class TakeTestComponent {
   preventNext: boolean = false;
 
   constructor(private testsService: TestsService,
+              private dialogService: DialogService,
               private route: ActivatedRoute
   ) {}
 
@@ -194,6 +196,28 @@ export class TakeTestComponent {
   endTest()
   {
     console.log("test over");
+    this.calculateScore();
+  }
+
+  calculateScore()
+  { 
+    this.attemptInfo.forEach(async (a, i) => {
+      if(a.isCorrect === undefined)
+      {
+        let r = await this.openDialog({userAnswer: a.selectedAnswer, setAnswer: this.questionPool[i].answer}); 
+        console.log(r);
+      } 
+      
+    })
+  }
+
+  openDialog(data: any = undefined)
+  {
+    return new Promise<any> ((resolve, reject) => {
+      this.dialogService.openDialog("check-answer", data).afterClosed().subscribe(r => {
+        resolve(r);
+      })
+    })
   }
 
   forceMove()

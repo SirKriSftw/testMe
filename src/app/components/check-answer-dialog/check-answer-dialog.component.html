@@ -1,0 +1,17 @@
+<div class = "container">
+    <div class = "answers">
+        <div>
+            <label>Your answer: </label>
+            {{userAnswer}}
+        </div>
+        <div>
+            <label>Correct answer: </label>
+            {{setAnswer}}
+        </div>
+    </div>
+    <div>
+        <label>Is Correct:</label>
+        <input type = "checkbox" [(ngModel)] = "isCorrect">
+    </div>
+    <button (click) = "next()">Next</button>
+</div>

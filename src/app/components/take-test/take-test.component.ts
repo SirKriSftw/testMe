@@ -45,13 +45,16 @@ export class TakeTestComponent {
         if(this.test?.questions)
         {
           this.questionPool = this.test.questions;
-          this.currentQuestion = this.questionPool[this.questionIndex];
           this.questionCount = this.questionPool.length;
+          this.options = history.state.info;
+          if(this.options.questionTimer) this.currentQuestionTime = this.options.questionTimer;
+          if(this.options.randomOrder) this.questionPool = this.shuffleOrder(this.questionPool);
+          this.currentQuestion = this.questionPool[this.questionIndex];
+          console.log(this.options);
         } 
       }
     );
-    this.options = history.state.info;
-    if(this.options.questionTimer) this.currentQuestionTime = this.options.questionTimer;
+    
   }
 
 
@@ -222,7 +225,22 @@ export class TakeTestComponent {
 
   addMoreQuestions()
   {
-    this.questionPool = this.questionPool.concat(this.test?.questions!);
+    if(this.options.randomOrder) this.questionPool = this.questionPool.concat(this.shuffleOrder(this.test?.questions!));
+    else this.questionPool = this.questionPool.concat(this.test?.questions!);
     this.questionCount = this.questionPool.length;
+  }
+
+  // Fisher-Yates shuffle algorithm
+  shuffleOrder<T>(a: T[]): T[]
+  {
+    const shuffledArray = [...a];
+
+    for(let i = shuffledArray.length - 1; i > 0; i--)
+    {
+      const j = Math.floor(Math.random() * (i + 1));
+      [shuffledArray[i], shuffledArray[j]] = [shuffledArray[j], shuffledArray[i]];
+    }
+    
+    return shuffledArray;
   }
 }

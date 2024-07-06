@@ -124,6 +124,10 @@ export class TakeTestComponent {
     {
       this.options.randomChoices ? this.currentChoices = this.shuffleOrder(this.currentQuestion.choices!) : this.currentChoices = this.currentQuestion.choices;
     } 
+    else
+    {
+      this.currentChoices = [];
+    }
     this.updateButtons();
     this.loadAttemptInfo();
   }

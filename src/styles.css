@@ -25,6 +25,7 @@ body.purple-background {
 
 input[type = "checkbox"] {
     accent-color: #730F9B;
+    cursor: pointer;
 }
 
 ::selection {

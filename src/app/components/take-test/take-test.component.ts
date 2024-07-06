@@ -20,6 +20,7 @@ export class TakeTestComponent {
   options: any = {};
   attemptInfo: Attempt[] = [];
   test?: Test = undefined;
+  questionPool: Question[] = [];
   id: number = -1;
   questionIndex = 0;
   currentQuestion?: Question = undefined;
@@ -41,8 +42,12 @@ export class TakeTestComponent {
     this.testsService.getTest(this.id).subscribe(
       (r) => {
         this.test = r;
-        if(this.test?.questions) this.currentQuestion = this.test?.questions[this.questionIndex];
-        if(this.test?.questions) this.questionCount = this.test.questions.length;
+        if(this.test?.questions)
+        {
+          this.questionPool = this.test.questions;
+          this.currentQuestion = this.questionPool[this.questionIndex];
+          this.questionCount = this.questionPool.length;
+        } 
       }
     );
     this.options = history.state.info;
@@ -108,7 +113,7 @@ export class TakeTestComponent {
   {
     this.updateAttemptInfo();
     this.questionIndex = i;
-    if(this.test?.questions) this.currentQuestion = this.test?.questions[this.questionIndex];
+    this.currentQuestion = this.questionPool[this.questionIndex];
     this.updateButtons();
     this.loadAttemptInfo();
   }
@@ -116,7 +121,7 @@ export class TakeTestComponent {
   updateButtons()
   {
     this.questionIndex == 0 ? this.canPrev = false : this.canPrev = true;
-    this.questionIndex < this.questionCount - 1 ? this.canNext = true : this.canNext = false;
+    this.questionIndex < this.questionCount - 1 || this.options.endless ? this.canNext = true : this.canNext = false;
   }
 
   updateAttemptInfo()
@@ -197,6 +202,7 @@ export class TakeTestComponent {
 
   hasNext()
   {
+    if(this.options.endless && this.questionIndex == this.questionCount - 1) this.addMoreQuestions();
     let nextArray = this.attemptInfo.slice(this.questionIndex + 1);
     let possibleIndex = nextArray.findIndex(a => !a.disabled);
     if(possibleIndex != -1) possibleIndex = possibleIndex + this.questionIndex + 1;
@@ -212,5 +218,11 @@ export class TakeTestComponent {
     if(possibleIndex != -1) possibleIndex = (prevArray.length - 1) - possibleIndex;
     else this.canPrev = false;
     return possibleIndex; 
+  }
+
+  addMoreQuestions()
+  {
+    this.questionPool = this.questionPool.concat(this.test?.questions!);
+    this.questionCount = this.questionPool.length;
   }
 }

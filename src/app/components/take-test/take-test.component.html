@@ -44,7 +44,7 @@
         </div>
         <div>
             <div class = "progress">
-                {{questionIndex + 1}} / {{test?.questions?.length}}
+                {{questionIndex + 1}} / {{this.questionCount}}
             </div>
         </div>
         <div [ngClass] = "{'disabled' : !canNext, 'btn' : canNext && !preventNext, 'preventNext' : preventNext}" (click) = "nextQuestion()">            

@@ -193,29 +193,36 @@ export class TakeTestComponent {
     else return undefined;
   }
 
-  endTest()
+  async endTest()
   {
     console.log("test over");
-    this.calculateScore();
+    let results = await this.calculateScore();
+    console.log(results);
   }
 
-  calculateScore()
-  { 
-    this.attemptInfo.forEach(async (a, i) => {
-      if(a.isCorrect === undefined)
-      {
-        let r = await this.openDialog({userAnswer: a.selectedAnswer, setAnswer: this.questionPool[i].answer}); 
-        console.log(r);
-      } 
-      
-    })
+  async calculateScore()
+  {
+    let totalCorrect = 0;
+    const promises = this.attemptInfo.map(async (a, i) => {
+      if (a.isCorrect === undefined) {
+        let determinedCorrect = await this.openDialog({ userAnswer: a.selectedAnswer, setAnswer: this.questionPool[i].answer });
+        a.isCorrect = determinedCorrect;
+        if (a.isCorrect) totalCorrect++;
+      } else if (a.isCorrect) {
+        totalCorrect++;
+      }
+    });
+
+    await Promise.all(promises);
+
+    return totalCorrect;
   }
 
   openDialog(data: any = undefined)
   {
     return new Promise<any> ((resolve, reject) => {
-      this.dialogService.openDialog("check-answer", data).afterClosed().subscribe(r => {
-        resolve(r);
+      this.dialogService.openDialog("check-answer", data).afterClosed().subscribe( determinedCorrect => {
+        resolve(determinedCorrect);
       })
     })
   }

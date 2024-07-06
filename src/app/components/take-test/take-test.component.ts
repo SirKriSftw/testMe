@@ -51,7 +51,7 @@ export class TakeTestComponent {
           this.options = history.state.info;
           if(this.options.questionTimer) this.currentQuestionTime = this.options.questionTimer;
           if(this.options.randomOrder) this.questionPool = this.shuffleOrder(this.questionPool);
-          this.currentQuestion = this.questionPool[this.questionIndex];
+          this.jumpToQuestion(this.questionIndex);
           console.log(this.options);
         } 
       }

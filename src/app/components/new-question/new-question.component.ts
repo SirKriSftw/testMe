@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, HostListener, Input, Output, Renderer2, ViewChild, ViewContainerRef } from '@angular/core';
 import { QuestionsService } from '../../services/questions.service';
 import { Choice } from '../../models/choice.model';
 import { Question } from '../../models/question.model';
@@ -9,6 +9,8 @@ import { Question } from '../../models/question.model';
   styleUrl: './new-question.component.css'
 })
 export class NewQuestionComponent {
+
+  @ViewChild('questionInput', { read: ViewContainerRef}) questionInput!: ViewContainerRef;
 
   @Input() testId: number = 0;
   @Output() questionSaved = new EventEmitter<Question>();
@@ -21,7 +23,27 @@ export class NewQuestionComponent {
   warning: string = "";
   MAX_CHOICES: number = 26;
 
-  constructor(private questionsService: QuestionsService){}
+  constructor(private questionsService: QuestionsService,
+              private renderer: Renderer2
+  ){}
+
+  handleKeyUp(e: KeyboardEvent)
+  {
+    e.stopPropagation();
+  }
+
+  ngAfterViewInit()
+  {
+    setTimeout(() => {
+      this.setFocus();
+    })
+  }
+
+  setFocus()
+  {
+    const inputElement = this.questionInput.element.nativeElement as HTMLInputElement;    
+    this.renderer.selectRootElement(inputElement).focus(); 
+  }
 
   choiceLabel(i: number)
   {

@@ -18,7 +18,6 @@ export class TestComponent {
   id?: number;
   hideAnswers: boolean = true;
   hasQuestions: boolean = false;
-  addKeyPress: boolean = false;
 
   constructor(private testsService: TestsService,
               private dialogService: DialogService,
@@ -44,20 +43,13 @@ export class TestComponent {
     );
   }
 
-  @HostListener("document:keydown", ["$event"])
-  addKeyDown(e: KeyboardEvent)
-  {
-    if(e.key === "+" && !this.addKeyPress)
-    {
-      this.addKeyPress = true;
-      this.newQuestion();
-    }
-  }
-
   @HostListener("document:keyup", ["$event"])
   addKeyUp(e: KeyboardEvent)
   {
-    if(e.key === "+") this.addKeyPress = false;
+    if(e.key === "+")
+    {
+      this.newQuestion();
+    } 
   }
 
 
@@ -74,6 +66,9 @@ export class TestComponent {
   {
     const newQ = this.questionContainer.createComponent(NewQuestionComponent);
     newQ.instance.testId = this.id!;
+    setTimeout(() => {
+      newQ.location.nativeElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }, 0);
 
     newQ.instance.questionSaved.subscribe((r) => {
       if(!this.test?.questions) this.test!.questions = [];

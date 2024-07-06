@@ -5,8 +5,8 @@
     </div>
     <p class = "warning">{{warning}}</p>
     <form (ngSubmit) = "submitQuestion()">
-        <textarea [(ngModel)]= "question" placeholder = "Question" name = "question"></textarea>
-        <div class = "choices">
+        <textarea #questionInput [(ngModel)]= "question" placeholder = "Question" name = "question" (keyup) = "handleKeyUp($event)"></textarea>
+        <div class = "choices"> 
             <div class = "choice"  *ngFor = "let choice of choices; let i = index; trackBy: trackByFn">
                 <label>{{choiceLabel(i)}}</label>
                 <input placeholder = "Choice" name = "choice{{i}}" id = "choice{{i}}" [(ngModel)] = "choices[i].choice">
@@ -14,7 +14,7 @@
             </div>
             <button (click) = "addChoice()" type = "button" *ngIf = "choices.length < MAX_CHOICES">Add choice</button>
         </div>
-        <textarea *ngIf = "choices.length == 0" [(ngModel)]= "answer" placeholder = "Answer" name = "answer"></textarea>
+        <textarea *ngIf = "choices.length == 0" [(ngModel)]= "answer" placeholder = "Answer" name = "answer" (keyup) = "handleKeyUp($event)"></textarea>
         <div class = "mcAnswer" *ngIf = "choices.length != 0">
             <label>Answer:</label>
             <select [(ngModel)] = "answerIndex" name = "answer-mc">

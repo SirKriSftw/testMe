@@ -1,4 +1,4 @@
-import { Component, ElementRef, HostListener, ViewChild } from '@angular/core';
+import { Component, ElementRef, HostListener, numberAttribute, ViewChild } from '@angular/core';
 import { Test } from '../../models/test.model';
 import { TestsService } from '../../services/tests.service';
 import { ActivatedRoute } from '@angular/router';
@@ -6,6 +6,7 @@ import { Question } from '../../models/question.model';
 import { Attempt } from '../../models/attempt.model';
 import { TimerComponent } from '../timer/timer.component';
 import { Choice } from '../../models/choice.model';
+import { Result } from '../../models/result.model';
 import { DialogService } from '../../services/dialog.service';
 
 
@@ -202,20 +203,39 @@ export class TakeTestComponent {
 
   async calculateScore()
   {
-    let totalCorrect = 0;
+    let correctQuestions: Result[] = [];
+    let wrongQuestions: Result[] = [];
+    let results = {
+      totalCorrect: 0,
+      correctQuestions: correctQuestions,
+      wrongQuestions: wrongQuestions
+    }
     const promises = this.attemptInfo.map(async (a, i) => {
       if (a.isCorrect === undefined) {
         let determinedCorrect = await this.openDialog({ userAnswer: a.selectedAnswer, setAnswer: this.questionPool[i].answer });
         a.isCorrect = determinedCorrect;
-        if (a.isCorrect) totalCorrect++;
+        if (a.isCorrect)
+        {
+          results.totalCorrect++;
+          correctQuestions.push({question: this.questionPool[i], userAnswer: a.selectedAnswer});
+        }
+        else
+        {
+          wrongQuestions.push({question: this.questionPool[i], userAnswer: a.selectedAnswer});
+        }
       } else if (a.isCorrect) {
-        totalCorrect++;
+        results.totalCorrect++;
+        correctQuestions.push({question: this.questionPool[i]});
+      }
+      else
+      {
+        wrongQuestions.push({question: this.questionPool[i], userAnswer: a.selectedAnswer});
       }
     });
 
     await Promise.all(promises);
 
-    return totalCorrect;
+    return results;
   }
 
   openDialog(data: any = undefined)

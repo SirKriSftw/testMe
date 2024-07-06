@@ -6,5 +6,6 @@ export interface Question {
     question: string;
     answer: string;
     choices?: Choice[];
+    userAnswer?: string;
   }
   

@@ -6,8 +6,17 @@
     align-items: center;
 }
 
+.container i {
+    margin-bottom: 40px;
+}
+
+.take-test {
+    background-color: green;
+    padding: 10px;
+}
+
 .questions {
-    margin-top: 80px;
+    margin-top: 40px;
     width: 80%;
 }
 

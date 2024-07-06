@@ -10,25 +10,8 @@
                 <label>Hide Answers: </label>
                 <input type = "checkbox" [(ngModel)] = "hideAnswers">
             </div>
-            <div class = "question" *ngFor = "let question of test?.questions; let n = index;">
-                <div>
-                    <span class = "number">{{n + 1}}.</span>
-                    {{question.question}}
-                </div>
-                <div class = "choices" *ngFor = "let choice of question.choices; let i = index;">
-                    <div class = "choice">
-                        <label>{{choiceLabel(i)}}</label>
-                        <div class = "choice">
-                            {{choice.choice}}
-                        </div> 
-                    </div> 
-                </div>
-                <div class = "answer">
-                    <label>Answer: </label>
-                    <div [ngClass] = "{ 'spoiler' : hideAnswers }">
-                        {{question.answer}}
-                    </div>
-                </div>
+            <div *ngFor = "let question of test?.questions; let n = index;">
+                <app-question-card [question] = "question" [index] = "n" [hideAnswers] = "hideAnswers"></app-question-card>
             </div>
 
             <div class = "new">

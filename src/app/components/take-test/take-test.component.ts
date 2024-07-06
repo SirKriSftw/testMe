@@ -219,19 +219,19 @@ export class TakeTestComponent {
         if (a.isCorrect)
         {
           results.totalCorrect++;
-          correctQuestions.push({question: this.questionPool[i], userAnswer: a.selectedAnswer});
+          correctQuestions.push({question: this.questionPool[i], userAnswer: a.selectedAnswer, questionIndex: i});
         }
         else
         {
-          wrongQuestions.push({question: this.questionPool[i], userAnswer: a.selectedAnswer});
+          wrongQuestions.push({question: this.questionPool[i], userAnswer: a.selectedAnswer, questionIndex: i});
         }
       } else if (a.isCorrect) {
         results.totalCorrect++;
-        correctQuestions.push({question: this.questionPool[i]});
+        correctQuestions.push({question: this.questionPool[i], questionIndex: i});
       }
       else
       {
-        wrongQuestions.push({question: this.questionPool[i], userAnswer: a.selectedAnswer});
+        wrongQuestions.push({question: this.questionPool[i], userAnswer: a.selectedAnswer, questionIndex: i});
       }
     });
 

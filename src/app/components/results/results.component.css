@@ -1,7 +1,11 @@
 .container {
     display: flex;
     flex-direction: column;
-    align-items: center;
+}
+
+.center {
+    display: flex;
+    justify-content: center;
 }
 
 .results {
@@ -12,6 +16,8 @@
     flex-direction: column;
     align-items: center;
 }
+
+
 
 .section {
     display: flex;
@@ -40,4 +46,11 @@
     display: flex;
     margin-top: 16px;
     gap: 20px;
+}
+
+
+.questions {
+    margin-top: 20px;
+    margin-bottom: 200px;
+    width: 80%;
 }

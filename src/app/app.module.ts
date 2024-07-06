@@ -22,6 +22,7 @@ import { TakeTestComponent } from './components/take-test/take-test.component';
 import { TimerComponent } from './components/timer/timer.component';
 import { CheckAnswerDialogComponent } from './components/check-answer-dialog/check-answer-dialog.component';
 import { ResultsComponent } from './components/results/results.component';
+import { QuestionCardComponent } from './components/question-card/question-card.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { ResultsComponent } from './components/results/results.component';
     TakeTestComponent,
     TimerComponent,
     CheckAnswerDialogComponent,
-    ResultsComponent
+    ResultsComponent,
+    QuestionCardComponent
   ],
   imports: [
     BrowserModule,

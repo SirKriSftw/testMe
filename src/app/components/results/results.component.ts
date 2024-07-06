@@ -16,7 +16,7 @@ export class ResultsComponent {
   questionCount: number = 0;
   totalWrong: number = 0;
   correctPercent: string = "";
-  showCorrect: boolean = true;
+  showCorrect: boolean = false;
   showIncorrect: boolean = true;
 
   constructor(private router: Router) {}
@@ -28,6 +28,7 @@ export class ResultsComponent {
     this.questionCount = this.results.wrongQuestions.length + this.results.correctQuestions.length;
     this.totalWrong = this.questionCount - this.results.totalCorrect;
     this.correctPercent = this.calculatePercent(this.results.totalCorrect);
+    console.log(this.results);
   }
 
   ngAfterViewInit()

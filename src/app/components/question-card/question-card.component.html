@@ -1,0 +1,21 @@
+<div class = "question">
+    <div>
+        <span class = "number">{{index + 1}}.</span>
+        {{question.question}}
+    </div>
+    <div class = "choices" *ngFor = "let choice of question.choices; let i = index;">
+        <div class = "choice">
+            <label>{{choiceLabel(i)}}</label>
+            <div class = "choice">
+                {{choice.choice}}
+            </div> 
+        </div> 
+    </div>
+    <div class = "answer">
+        <label>Answer: </label>
+        <div [ngClass] = "{ 'spoiler' : hideAnswers }">
+            {{question.answer}}
+        </div>
+    </div>
+</div>
+

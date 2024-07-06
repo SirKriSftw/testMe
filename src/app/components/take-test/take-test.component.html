@@ -31,7 +31,7 @@
                 </div> 
             </div> 
         </div>
-        <div *ngIf = "!currentQuestion?.choices">
+        <div *ngIf = "currentChoices?.length == 0">
             <textarea #longAnswer class = "long-answer" [(ngModel)] = "currentAnswer"></textarea>
         </div>
         <div class = "answer" *ngIf = "options.practice">

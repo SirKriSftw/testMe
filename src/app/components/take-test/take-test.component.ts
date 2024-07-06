@@ -127,6 +127,7 @@ export class TakeTestComponent {
     {
       this.currentChoices = [];
     }
+
     this.updateButtons();
     this.loadAttemptInfo();
   }

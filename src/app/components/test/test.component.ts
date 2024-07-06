@@ -17,6 +17,7 @@ export class TestComponent {
   test?: Test;
   id?: number;
   hideAnswers: boolean = true;
+  hasQuestions: boolean = false;
 
   constructor(private testsService: TestsService,
               private dialogService: DialogService,
@@ -30,7 +31,11 @@ export class TestComponent {
     this.testsService.getTest(this.id).subscribe(
       (r) => {
         this.test = r;
-        if(this.test == undefined)
+        if(this.test?.questions)
+        {
+          if(this.test.questions.length > 0) this.hasQuestions = true;
+        }
+        else if(this.test == undefined)
         {
           this.router.navigate(["tests"]);
         }
@@ -53,7 +58,10 @@ export class TestComponent {
     newQ.instance.testId = this.id!;
 
     newQ.instance.questionSaved.subscribe((r) => {
+      if(!this.test?.questions) this.test!.questions = [];
       this.test?.questions?.push(r);
+      console.log(r);
+      this.hasQuestions = true;
       newQ.destroy();
     })
     newQ.instance.questionCancelled.subscribe(() => {

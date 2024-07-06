@@ -55,8 +55,7 @@ export class TakeTestComponent {
           console.log(this.options);
         } 
       }
-    );
-    
+    ); 
   }
 
 

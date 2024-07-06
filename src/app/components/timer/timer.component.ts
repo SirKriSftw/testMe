@@ -10,6 +10,7 @@ export class TimerComponent {
 
   @Input() timeRemaining: number = 0;
   @Input() countdown: boolean = false;
+  @Input() hidden: boolean = false;
 
   @Output() timerFinish = new EventEmitter();
   timerInterval: any;

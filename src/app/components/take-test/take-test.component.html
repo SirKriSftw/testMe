@@ -1,10 +1,14 @@
 <div class = "container">
-    <div class = "timer" *ngIf = "this.options.timer">
+    <div class = "timer" *ngIf = "this.options.timer || this.options.testTimer">
         <app-timer 
         (timerFinish) = "endTest()"
         [timeRemaining] = "this.options.testTimer ? this.options.testTimer : 0" 
-        [countdown] = "this.options.testTimer">
+        [countdown] = "this.options.testTimer"
+        [hidden] = "!this.options.timer && this.options.testTimer">
         </app-timer>
+        <div *ngIf = "!this.options.timer && this.options.testTimer">
+            Test is being timed
+        </div>
     </div>
 
     <div class = "question-card">

@@ -5,7 +5,7 @@
             <div class = "column">
                 <label>Practice<span class = "hint" matTooltip = "Spoiler answer will be given with quesiton.">?</span>:</label>
                 <label>Perfect<span class = "hint" matTooltip = "Cannot proceed to next question until answer is correct.">?</span>:</label>
-                <label>Endless<span class = "hint" matTooltip = "Test will not end until the 'end' button is pressed">?</span>:</label>
+                <label>Endless<span class = "hint" matTooltip = "Test will not end until the 'End test' button is pressed">?</span>:</label>
             </div>
             <div class = "column">
                 <input type = "checkbox" name = "practice" [(ngModel)] = "practice">
@@ -15,7 +15,7 @@
             <div class = "column">
                 <label>Exact<span class = "hint" matTooltip = "Written in answers must match exactly. (Case insensitive)">?</span>:</label>
                 <label>Random Order<span class = "hint" matTooltip = "Randomize the order of the quesitons.">?</span>:</label>
-                <label>Random Choices<span class = "hint" matTooltip = "Randomize the order of the choices.">?</span>:</label>
+                <label>Random Choices<span class = "hint" matTooltip = "Randomize the order of question choices.">?</span>:</label>
             </div>
             <div class = "column">
                 <input type = "checkbox" name = "exact" [(ngModel)] = "exact">
@@ -23,7 +23,7 @@
                 <input type = "checkbox" name = "randomChoices" [(ngModel)] = "randomChoices">
             </div>
             <div class = "column">
-                <label>Show Timer<span class = "hint" matTooltip = "Displays elapsed time timer during test.">?</span>:</label>
+                <label>Show Timer<span class = "hint" matTooltip = "Displays test timer. (Elapsed or Countdown)">?</span>:</label>
                 <label>Test Timer<span class = "hint" matTooltip = "Test auto submits after a set duration (in minutes.seconds).">?</span>:</label>
                 <label>Question Timer<span class = "hint" matTooltip = "Questions auto submit after a set duration (in minutes.seconds).">?</span>:</label>
             </div>

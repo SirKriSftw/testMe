@@ -64,7 +64,7 @@ export class TestComponent {
   openDialog()
   {
     this.dialogService.openDialog().afterClosed().subscribe(r => {
-      this.router.navigate(["/take/test/" + this.test?.id], { state: { info: r }});
+      if(r != undefined) this.router.navigate(["/take/test/" + this.test?.id], { state: { info: r }});
     })
   }
 }

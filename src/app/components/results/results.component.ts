@@ -16,8 +16,8 @@ export class ResultsComponent {
   questionCount: number = 0;
   totalWrong: number = 0;
   correctPercent: string = "";
-  hideCorrect: boolean = false;
-  hideWrong: boolean = false;
+  showCorrect: boolean = true;
+  showIncorrect: boolean = true;
 
   constructor(private router: Router) {}
 

@@ -6,6 +6,16 @@
                 You scored <span class = "percentage" [ngClass] = "{'passing': this.totalWrong < this.questionCount / 2}">{{correctPercent}}%</span>!
             </div>
         </div>
+        <div class = "toggles">
+            <div class = "toggle">
+                <label>Show correct: </label>
+                <input type = "checkbox" [(ngModel)] = "showCorrect">
+            </div>
+            <div class = "toggle">
+                <label>Show incorrect: </label>
+                <input type = "checkbox" [(ngModel)] = "showIncorrect">
+            </div>
+        </div>
     </div>
 </div>
 

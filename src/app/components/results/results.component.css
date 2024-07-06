@@ -1,6 +1,7 @@
 .container {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    align-items: center;
 }
 
 .results {
@@ -33,4 +34,10 @@
 
 .passing {
     color: green;
+}
+
+.toggles {
+    display: flex;
+    margin-top: 16px;
+    gap: 20px;
 }

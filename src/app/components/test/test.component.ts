@@ -1,4 +1,4 @@
-import { Component, ViewChild, ViewContainerRef } from '@angular/core';
+import { Component, HostListener, ViewChild, ViewContainerRef } from '@angular/core';
 import { TestsService } from '../../services/tests.service';
 import { Test } from '../../models/test.model';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -18,6 +18,7 @@ export class TestComponent {
   id?: number;
   hideAnswers: boolean = true;
   hasQuestions: boolean = false;
+  addKeyPress: boolean = false;
 
   constructor(private testsService: TestsService,
               private dialogService: DialogService,
@@ -42,6 +43,23 @@ export class TestComponent {
       }
     );
   }
+
+  @HostListener("document:keydown", ["$event"])
+  addKeyDown(e: KeyboardEvent)
+  {
+    if(e.key === "+" && !this.addKeyPress)
+    {
+      this.addKeyPress = true;
+      this.newQuestion();
+    }
+  }
+
+  @HostListener("document:keyup", ["$event"])
+  addKeyUp(e: KeyboardEvent)
+  {
+    if(e.key === "+") this.addKeyPress = false;
+  }
+
 
   choiceLabel(i: number)
   {

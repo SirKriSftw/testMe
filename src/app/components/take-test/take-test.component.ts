@@ -1,7 +1,7 @@
-import { Component, ElementRef, HostListener, numberAttribute, ViewChild } from '@angular/core';
+import { Component, ElementRef, HostListener, ViewChild } from '@angular/core';
 import { Test } from '../../models/test.model';
 import { TestsService } from '../../services/tests.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Question } from '../../models/question.model';
 import { Attempt } from '../../models/attempt.model';
 import { TimerComponent } from '../timer/timer.component';
@@ -38,7 +38,8 @@ export class TakeTestComponent {
 
   constructor(private testsService: TestsService,
               private dialogService: DialogService,
-              private route: ActivatedRoute
+              private route: ActivatedRoute,
+              private router: Router
   ) {}
 
   ngOnInit()
@@ -199,6 +200,7 @@ export class TakeTestComponent {
     console.log("test over");
     let results = await this.calculateScore();
     console.log(results);
+    this.router.navigate(["results"], { state: { results: results } });
   }
 
   async calculateScore()

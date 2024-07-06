@@ -21,6 +21,7 @@ import { DialogService } from './services/dialog.service';
 import { TakeTestComponent } from './components/take-test/take-test.component';
 import { TimerComponent } from './components/timer/timer.component';
 import { CheckAnswerDialogComponent } from './components/check-answer-dialog/check-answer-dialog.component';
+import { ResultsComponent } from './components/results/results.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { CheckAnswerDialogComponent } from './components/check-answer-dialog/che
     TakeTestDialogComponent,
     TakeTestComponent,
     TimerComponent,
-    CheckAnswerDialogComponent
+    CheckAnswerDialogComponent,
+    ResultsComponent
   ],
   imports: [
     BrowserModule,

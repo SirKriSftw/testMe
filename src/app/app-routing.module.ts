@@ -4,12 +4,14 @@ import { HomeComponent } from './components/home/home.component';
 import { TestComponent } from './components/test/test.component';
 import { TestsComponent } from './components/tests/tests.component';
 import { TakeTestComponent } from './components/take-test/take-test.component';
+import { ResultsComponent } from './components/results/results.component';
 
 const routes: Routes = [
   {path: "home", component: HomeComponent, title: "Home"},
   {path: "tests", component: TestsComponent, title: "Tests"},
   {path: "test/:id", component: TestComponent, title: "Test"},
   {path: "take/test/:id", component: TakeTestComponent, title: "Taking Test"},
+  {path: "results", component: ResultsComponent, title: "Test Results"},
   {path: "", redirectTo: "home", pathMatch: "full"},
   {path: "**", redirectTo: "home"}
 ];

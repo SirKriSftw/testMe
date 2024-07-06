@@ -52,4 +52,9 @@
             <div class = "point right"> </div>
         </div>
     </div>
+    <div *ngIf = "this.options.endless || (!this.options.endless && !canNext)" class = "end">
+        <button (click) = "endTest()">
+            End Test
+        </button>
+    </div>
 </div>

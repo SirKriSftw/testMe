@@ -186,6 +186,23 @@
 
 }
 
+.end {
+    margin-top: 20px;
+}
+
+.end button {
+    background-color: #730F9B;
+    color: #A2BAF6;
+    border: 0;
+    padding: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.end button:hover {
+    background-color: #530B6F;
+}
+
 
 .preventNext {
     display: flex;

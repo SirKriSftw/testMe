@@ -87,7 +87,8 @@ export class TakeTestComponent {
     this.updateAttemptInfo();
     let possibleNext = this.hasNext();
     if(this.preventNext || !this.canNext || possibleNext == -1) return;
-    if(this.options.perfect && !this.checkAnswer())
+    const check = this.checkAnswer();
+    if(this.options.perfect && !check && check != undefined)
     {
       this.preventNext = true;
 
@@ -117,6 +118,7 @@ export class TakeTestComponent {
     this.updateAttemptInfo();
     this.questionIndex = i;
     this.currentQuestion = this.questionPool[this.questionIndex];
+    if(this.options.randomChoices && this.currentQuestion.choices) this.currentQuestion.choices = this.shuffleOrder(this.currentQuestion.choices!);
     this.updateButtons();
     this.loadAttemptInfo();
   }
@@ -240,7 +242,7 @@ export class TakeTestComponent {
       const j = Math.floor(Math.random() * (i + 1));
       [shuffledArray[i], shuffledArray[j]] = [shuffledArray[j], shuffledArray[i]];
     }
-    
+
     return shuffledArray;
   }
 }

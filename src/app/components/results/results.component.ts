@@ -15,6 +15,7 @@ export class ResultsComponent {
   results: any = {};
   questionCount: number = 0;
   totalWrong: number = 0;
+  correctPercent: string = "";
   hideCorrect: boolean = false;
   hideWrong: boolean = false;
 
@@ -26,6 +27,7 @@ export class ResultsComponent {
     if(this.results === undefined) this.router.navigate([""]);
     this.questionCount = this.results.wrongQuestions.length + this.results.correctQuestions.length;
     this.totalWrong = this.questionCount - this.results.totalCorrect;
+    this.correctPercent = this.calculatePercent(this.results.totalCorrect);
   }
 
   ngAfterViewInit()
@@ -38,21 +40,35 @@ export class ResultsComponent {
         'Correct'
       ],
       datasets: [{
-        label: "Total",
         data: [this.totalWrong, this.results.totalCorrect],
         backgroundColor: [
-          "red",
-          "green"
+          "#210B6F",
+          "#730F9B"
+
         ],
-        hoverOffset: 4
-      }],
+        hoverOffset: 4,
+        borderWidth: 2, 
+        borderColor: '#210B6F'
+      }]
     }
 
     const options = {
       responsive: true,
-      plugins: {
-        legend: {
+      plugins: 
+      {
+        legend: 
+        {
           display: false
+        },
+        tooltip: {
+          callbacks: {
+            label: (tooltipItem: any) => {
+              const dataset = data.datasets[tooltipItem.datasetIndex];
+              const currentValue = dataset.data[tooltipItem.dataIndex];
+              const percentage = this.calculatePercent(currentValue);
+              return `  ${percentage}% (${currentValue})`;
+            }
+          }
         }
       }
     }
@@ -60,8 +76,12 @@ export class ResultsComponent {
     this.chart = new Chart(ctx, {
       type: "pie",
       data: data,
-      options: options
+      options: options as any
     })
+  }
 
+  calculatePercent(nCorrect: number)
+  {
+    return ((nCorrect / this.questionCount) * 100).toFixed(2).replace(/\.?0*$/, '');
   }
 }

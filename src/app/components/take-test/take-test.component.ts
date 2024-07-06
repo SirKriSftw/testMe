@@ -5,6 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Question } from '../../models/question.model';
 import { Attempt } from '../../models/attempt.model';
 import { TimerComponent } from '../timer/timer.component';
+import { Choice } from '../../models/choice.model';
 
 
 @Component({
@@ -24,6 +25,7 @@ export class TakeTestComponent {
   id: number = -1;
   questionIndex = 0;
   currentQuestion?: Question = undefined;
+  currentChoices?: Choice[] = [];
   currentQuestionTime?: number = undefined;
   currentAnswer?: string = undefined;
   questionCount: number = 0;
@@ -118,7 +120,10 @@ export class TakeTestComponent {
     this.updateAttemptInfo();
     this.questionIndex = i;
     this.currentQuestion = this.questionPool[this.questionIndex];
-    if(this.options.randomChoices && this.currentQuestion.choices) this.currentQuestion.choices = this.shuffleOrder(this.currentQuestion.choices!);
+    if(this.currentQuestion.choices)
+    {
+      this.options.randomChoices ? this.currentChoices = this.shuffleOrder(this.currentQuestion.choices!) : this.currentChoices = this.currentQuestion.choices;
+    } 
     this.updateButtons();
     this.loadAttemptInfo();
   }

@@ -18,7 +18,7 @@
             <span class = "number">{{questionIndex + 1}}.</span>
             {{currentQuestion?.question}}
         </div>
-        <div class = "choices" *ngFor = "let choice of currentQuestion?.choices; let i = index;">
+        <div class = "choices" *ngFor = "let choice of currentChoices; let i = index;">
             <div class = "choice">
                 <input type = "radio" id = "choice{{i}}" name = "choices" value = "{{choice.choice}}" [(ngModel)] = "currentAnswer">
                 <label>{{choiceLabel(i)}}</label>

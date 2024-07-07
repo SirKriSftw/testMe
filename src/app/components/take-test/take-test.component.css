@@ -192,8 +192,8 @@
 
 .end button {
     background-color: #730F9B;
+    border: 1px solid #210B6F;
     color: #A2BAF6;
-    border: 0;
     padding: 10px;
     cursor: pointer;
     transition: background-color 0.3s;

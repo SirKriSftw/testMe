@@ -11,8 +11,15 @@
 }
 
 .take-test {
-    background-color: green;
-    padding: 10px;
+    padding: 12px;
+    border: 1px solid #210B6F;
+    background-color: #730F9B;
+    color: #A2BAF6;
+    transition: background-color 0.3s;
+}
+
+.take-test:hover {
+    background-color: #530B6F;
     cursor: pointer;
 }
 

@@ -18,7 +18,7 @@ export class ResultsComponent {
   questionCount: number = 0;
   totalWrong: number = 0;
   correctPercent: string = "";
-  showCorrect: boolean = true;
+  showCorrect: boolean = false;
   showIncorrect: boolean = true;
   canUpdateChart: boolean = false;
 
@@ -38,6 +38,13 @@ export class ResultsComponent {
   {
     this.createChart();
     this.canUpdateChart = true;
+    this.updateDisplay();
+  }
+
+  retakeTest() 
+  {
+    const testId = this.results.questions[0].question.testId;
+    this.router.navigate(["test/" + testId])
   }
 
   updateDisplay()

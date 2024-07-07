@@ -5,12 +5,13 @@
 }
 
 .center {
+    margin-top: 10px;
     display: flex;
     justify-content: center;
 }
 
 .results {
-    margin-top: 20px;
+
     width: 10%;
     height: 10%;
     display: flex;
@@ -20,16 +21,6 @@
 
 .results div, .toggles {
     font-weight: 500;
-}
-
-.section {
-    display: flex;
-    justify-content: center;
-    margin-top: 10px;
-}
-
-.section label {
-    padding-right: 10px;
 }
 
 .results div {
@@ -55,3 +46,17 @@
     margin-top: 20px;
     width: 80%;
 }
+
+.retake {
+    padding: 12px;
+    border: 1px solid #210B6F;
+    background-color: #730F9B;
+    color: #A2BAF6;
+    transition: background-color 0.3s;
+}
+
+.retake:hover {
+    background-color: #530B6F;
+    cursor: pointer;
+}
+

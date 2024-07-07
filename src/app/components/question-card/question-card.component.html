@@ -1,22 +1,25 @@
 <div class = "question">
     <div>
-        <span class = "correctness" *ngIf = "isIncorrect != undefined">
-            <span *ngIf = "isIncorrect">❌</span>
-            <span *ngIf = "!isIncorrect">✔️</span>
+        <span class = "correctness" *ngIf = "isCorrect != undefined">
+            <span *ngIf = "!isCorrect">❌</span>
+            <span *ngIf = "isCorrect">✔️</span>
         </span>
         <span class = "number">{{index + 1}}.</span>
         {{question.question}}
     </div>
     <div class = "choices" *ngFor = "let choice of question.choices; let i = index;">
-        <div class = "choice" [ngClass] = "{'correct' : choice.choice == question.answer && !isIncorrect && userAnswer != undefined, 'incorrect' : userAnswer  == choice.choice && isIncorrect}">
+        <div class = "choice" [ngClass] = "{'correct' : choice.choice == question.answer && isCorrect != undefined, 'incorrect' : userAnswer  == choice.choice && !isCorrect}">
             <label>{{choiceLabel(i)}}</label>
             <div class = "choice">
                 {{choice.choice}}
             </div> 
         </div> 
     </div>
+    <div class = "incorrect" *ngIf = "userAnswer == undefined && !isCorrect && isCorrect != undefined">
+        You did not answer :(
+    </div>
     <div class = "answer" *ngIf = "!question.choices && userAnswer != undefined"
-    [ngClass] = "{'correct' : !isIncorrect && userAnswer != undefined, 'incorrect' : isIncorrect && userAnswer != undefined}">
+    [ngClass] = "{'correct' : isCorrect && userAnswer != undefined, 'incorrect' : !isCorrect && userAnswer != undefined}">
         <label>You Answered: </label>
         <span><i> {{userAnswer}}</i></span>
     </div>

@@ -9,6 +9,8 @@ import { Question } from '../../models/question.model';
 export class QuestionCardComponent {
 
   @Input() question!: Question;
+  @Input() isIncorrect: boolean = false;
+  @Input() userAnswer?: string;
   @Input() index: number = 0;
   @Input() hideAnswers: boolean = true;
 

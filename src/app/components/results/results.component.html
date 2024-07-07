@@ -26,6 +26,8 @@
                 <app-question-card class = "question" *ngFor = "let question of displayQuestions" 
                 [question] = "question.question" 
                 [index] = "question.questionIndex" 
+                [isIncorrect] = "!question.isCorrect"
+                [userAnswer] = "question.userAnswer"
                 [hideAnswers] = "false">
                 </app-question-card>
             </div>

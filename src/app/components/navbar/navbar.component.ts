@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
@@ -7,4 +8,11 @@ import { Component } from '@angular/core';
 })
 export class NavbarComponent {
   logoUrl = "assets/images/Logo.png";
+
+  constructor(private router: Router){}
+
+  goHome()
+  {
+    this.router.navigate(["home"]);
+  }
 }

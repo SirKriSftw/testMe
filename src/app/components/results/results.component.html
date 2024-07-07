@@ -21,7 +21,7 @@
             </div>
         </div>
 
-        <div class = "center">
+        <div class = "center" *ngIf = "displayQuestions.length > 0">
             <div class = "questions">
                 <app-question-card class = "question" *ngFor = "let question of displayQuestions" 
                 [question] = "question.question" 
@@ -31,6 +31,10 @@
                 [hideAnswers] = "false">
                 </app-question-card>
             </div>
+        </div>
+
+        <div class = "center">
+            <button>Retake Test</button>
         </div>
     </div>
 </div>

@@ -12,18 +12,18 @@
             <div class = "toggles">
                 <div class = "toggle">
                     <label>Show correct: </label>
-                    <input type = "checkbox" [(ngModel)] = "showCorrect">
+                    <input type = "checkbox" [(ngModel)] = "showCorrect" (change) = "updateDisplay()">
                 </div>
                 <div class = "toggle">
                     <label>Show incorrect: </label>
-                    <input type = "checkbox" [(ngModel)] = "showIncorrect">
+                    <input type = "checkbox" [(ngModel)] = "showIncorrect" (change) = "updateDisplay()">
                 </div>
             </div>
         </div>
 
         <div class = "center">
-            <div class = "incorrect questions" *ngIf = "showIncorrect">
-                <app-question-card class = "question" *ngFor = "let question of this.results.wrongQuestions" 
+            <div class = "questions">
+                <app-question-card class = "question" *ngFor = "let question of displayQuestions" 
                 [question] = "question.question" 
                 [index] = "question.questionIndex" 
                 [hideAnswers] = "false">

@@ -1,6 +1,7 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { Chart } from 'chart.js/auto';
+import { Result } from '../../models/result.model';
 
 @Component({
   selector: 'app-results',
@@ -13,6 +14,7 @@ export class ResultsComponent {
   chart: any;
 
   results: any = {};
+  displayQuestions: Result[] = [];
   questionCount: number = 0;
   totalWrong: number = 0;
   correctPercent: string = "";
@@ -25,10 +27,10 @@ export class ResultsComponent {
   {
     this.results = history.state.results;
     if(this.results === undefined) this.router.navigate([""]);
-    this.questionCount = this.results.wrongQuestions.length + this.results.correctQuestions.length;
+    this.questionCount = this.results.questions.length;
     this.totalWrong = this.questionCount - this.results.totalCorrect;
     this.correctPercent = this.calculatePercent(this.results.totalCorrect);
-    console.log(this.results);
+    this.updateDisplay();
   }
 
   ngAfterViewInit()
@@ -79,6 +81,20 @@ export class ResultsComponent {
       data: data,
       options: options as any
     })
+  }
+
+  updateDisplay()
+  {
+    if(this.showCorrect && this.showIncorrect) this.displayQuestions = this.results.questions;
+    else if(!this.showCorrect && !this.showIncorrect) this.displayQuestions = [];
+    else if (!this.showCorrect)
+    {
+      this.displayQuestions = this.results.questions.filter((q: any) => !q.isCorrect);
+    }
+    else if (!this.showIncorrect)
+    {
+      this.displayQuestions = this.results.questions.filter((q: any) => q.isCorrect);
+    }
   }
 
   calculatePercent(nCorrect: number)

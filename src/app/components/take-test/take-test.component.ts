@@ -205,33 +205,28 @@ export class TakeTestComponent {
 
   async calculateScore()
   {
-    let correctQuestions: Result[] = [];
-    let wrongQuestions: Result[] = [];
+    let questions: Result[] = [];
     let results = {
       totalCorrect: 0,
-      correctQuestions: correctQuestions,
-      wrongQuestions: wrongQuestions
+      questions: questions,
     }
     const promises = this.attemptInfo.map(async (a, i) => {
       if (a.isCorrect === undefined) {
         let determinedCorrect = await this.openDialog({ userAnswer: a.selectedAnswer, setAnswer: this.questionPool[i].answer });
         a.isCorrect = determinedCorrect;
-        if (a.isCorrect)
-        {
-          results.totalCorrect++;
-          correctQuestions.push({question: this.questionPool[i], userAnswer: a.selectedAnswer, questionIndex: i});
-        }
-        else
-        {
-          wrongQuestions.push({question: this.questionPool[i], userAnswer: a.selectedAnswer, questionIndex: i});
-        }
-      } else if (a.isCorrect) {
+
+        if (a.isCorrect) results.totalCorrect++;
+        questions.push({question: this.questionPool[i], userAnswer: a.selectedAnswer, questionIndex: i, isCorrect: this.attemptInfo[i].isCorrect!});
+
+      } 
+      else if (a.isCorrect) 
+      {
         results.totalCorrect++;
-        correctQuestions.push({question: this.questionPool[i], questionIndex: i});
+        questions.push({question: this.questionPool[i], questionIndex: i, isCorrect: this.attemptInfo[i].isCorrect!});
       }
       else
       {
-        wrongQuestions.push({question: this.questionPool[i], userAnswer: a.selectedAnswer, questionIndex: i});
+        questions.push({question: this.questionPool[i], userAnswer: a.selectedAnswer, questionIndex: i, isCorrect: this.attemptInfo[i].isCorrect!});
       }
     });
 

@@ -40,11 +40,14 @@
     margin-left: 5px;
 }
 
+.user-answer {
+    font-weight: 200;
+}
+
 .answer {
     width: 100%;
     display: flex;
 }
-
 
 .choice label, .answer label {
     padding: 0px 5px;

@@ -21,7 +21,7 @@
     <div class = "answer" *ngIf = "!question.choices && userAnswer != undefined"
     [ngClass] = "{'correct' : isCorrect && userAnswer != undefined, 'incorrect' : !isCorrect && userAnswer != undefined}">
         <label>You Answered: </label>
-        <span><i> {{userAnswer}}</i></span>
+        <span class = "user-answer">{{userAnswer}}</span>
     </div>
     <div class = "answer" *ngIf = "!question.choices">
         <label>Answer: </label>

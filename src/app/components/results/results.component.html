@@ -2,10 +2,10 @@
     <div class = "container">
         <div class = "center">
             <div class = "results">
-                <canvas #resultsChart></canvas>     
                 <div>
                     You scored <span class = "percentage" [ngClass] = "{'passing': this.totalWrong < this.questionCount / 2}">{{correctPercent}}%</span>!
                 </div>
+                <canvas #resultsChart></canvas>     
             </div>
         </div>
         <div class = "center">

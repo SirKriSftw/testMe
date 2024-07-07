@@ -31,10 +31,33 @@ export class ResultsComponent {
     this.totalWrong = this.questionCount - this.results.totalCorrect;
     this.correctPercent = this.calculatePercent(this.results.totalCorrect);
     this.updateDisplay();
-    console.log(this.results)
   }
 
   ngAfterViewInit()
+  {
+    this.createChart();
+  }
+
+  updateDisplay()
+  {
+    if(this.showCorrect && this.showIncorrect) this.displayQuestions = this.results.questions;
+    else if(!this.showCorrect && !this.showIncorrect) this.displayQuestions = [];
+    else if (!this.showCorrect)
+    {
+      this.displayQuestions = this.results.questions.filter((q: any) => !q.isCorrect);
+    }
+    else if (!this.showIncorrect)
+    {
+      this.displayQuestions = this.results.questions.filter((q: any) => q.isCorrect);
+    }
+  }
+  
+  calculatePercent(nCorrect: number)
+  {
+    return ((nCorrect / this.questionCount) * 100).toFixed(2).replace(/\.?0*$/, '');
+  }
+
+  createChart()
   {
     const ctx = this.resultsChart.nativeElement.getContext("2d");
 
@@ -82,24 +105,5 @@ export class ResultsComponent {
       data: data,
       options: options as any
     })
-  }
-
-  updateDisplay()
-  {
-    if(this.showCorrect && this.showIncorrect) this.displayQuestions = this.results.questions;
-    else if(!this.showCorrect && !this.showIncorrect) this.displayQuestions = [];
-    else if (!this.showCorrect)
-    {
-      this.displayQuestions = this.results.questions.filter((q: any) => !q.isCorrect);
-    }
-    else if (!this.showIncorrect)
-    {
-      this.displayQuestions = this.results.questions.filter((q: any) => q.isCorrect);
-    }
-  }
-
-  calculatePercent(nCorrect: number)
-  {
-    return ((nCorrect / this.questionCount) * 100).toFixed(2).replace(/\.?0*$/, '');
   }
 }

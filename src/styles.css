@@ -23,7 +23,7 @@ body.purple-background {
     overflow-y: auto;
 }
 
-input[type = "checkbox"] {
+input[type = "checkbox"], input[type = "radio"] {
     accent-color: #730F9B;
     cursor: pointer;
 }

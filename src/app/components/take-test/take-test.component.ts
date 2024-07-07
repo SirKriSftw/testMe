@@ -218,17 +218,31 @@ export class TakeTestComponent {
       totalCorrect: 0,
       questions: questions,
     }
-    const promises = this.attemptInfo.map(async (a, i) => {
-      if (a.isCorrect === undefined) {
-        let determinedCorrect = await this.openDialog({ userAnswer: a.selectedAnswer, setAnswer: this.questionPool[i].answer });
+
+    for (let i = 0; i < this.attemptInfo.length; i++)
+    {
+      const a = this.attemptInfo[i];
+
+      if(a.isCorrect === undefined)
+      {
+        let determinedCorrect = await this.openDialog(
+          { 
+            userAnswer: a.selectedAnswer, 
+            setAnswer: this.questionPool[i].answer, 
+            question: this.questionPool[i].question 
+          });
         a.isCorrect = determinedCorrect;
-      } 
-      if (a.isCorrect) results.totalCorrect++;
-      questions.push({question: this.questionPool[i], userAnswer: a.selectedAnswer, questionIndex: i, isCorrect: this.attemptInfo[i].isCorrect!});
-    });
+      }
+      if(a.isCorrect) results.totalCorrect++;
+      questions.push(
+        {
+          question: this.questionPool[i], 
+          userAnswer: a.selectedAnswer, 
+          questionIndex: i, 
+          isCorrect: this.attemptInfo[i].isCorrect!
+        });
 
-    await Promise.all(promises);
-
+    }
     return results;
   }
 

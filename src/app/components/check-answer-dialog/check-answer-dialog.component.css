@@ -1,12 +1,38 @@
 .container {
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
+    padding-top: 10px;
+    gap: 10px;
 }
 
-.answers {
+.center {
     display: flex;
-    flex-direction: column;
+    justify-content: center;
+}
+
+.bold label {
+    font-weight: bold;
+}
+
+.center label {
+    margin-right: 6px;
+}
+
+.center span {
+    border: black 1px solid;
+    padding: 2px 5px;
+    background-color: #E0E0E0;
+}
+
+.btn-container {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.next {
+    padding: 5px 10px;
+    margin-right: 10px;
+    border: 0;
+    background-color: #730F9B;
+    color: #A2BAF6;
 }

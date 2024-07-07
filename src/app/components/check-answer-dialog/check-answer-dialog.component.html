@@ -1,17 +1,29 @@
 <div class = "container">
-    <div class = "answers">
+    <div class = "center" mat-dialog-title>
+        Is your given answer correct?
+    </div>
+    <div class = "bold center">
+        <label>Question:</label>
+        <span>{{this.question}}</span>
+    </div>
+    <div class = "bold center">
         <div>
-            <label>Your answer: </label>
-            {{userAnswer}}
-        </div>
-        <div>
-            <label>Correct answer: </label>
-            {{setAnswer}}
+            <label>Your answer:</label>
+            <span>{{userAnswer}}</span>
+            
         </div>
     </div>
-    <div>
+    <div class = "bold center">
+        <div>
+            <label>Correct answer:</label>
+            <span>{{setAnswer}}</span>
+        </div>
+    </div>
+    <div class = "center">
         <label>Is Correct:</label>
         <input type = "checkbox" [(ngModel)] = "isCorrect">
     </div>
-    <button (click) = "next()">Next</button>
+    <div class = "btn-container" mat-dialog-actions>
+        <button class = "next" (click) = "next()">Next</button>
+    </div>
 </div>

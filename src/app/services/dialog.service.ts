@@ -22,9 +22,10 @@ export class DialogService {
       return this.dialog.open(CheckAnswerDialogComponent, {
         data: {
           userAnswer: data.userAnswer,
-          setAnswer: data.setAnswer
+          setAnswer: data.setAnswer,
+          question: data.question
         },
-        width: "50%"
+        width: "20%"
       })
     }
 

@@ -1,4 +1,4 @@
-import { Component, Inject, Input } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
@@ -9,15 +9,18 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 })
 export class CheckAnswerDialogComponent {
 
-  @Input() userAnswer!: string;
-  @Input() setAnswer!: string;
+  userAnswer!: string;
+  setAnswer!: string;
+  question!: string;
   isCorrect: boolean = false;
 
   constructor(public dialogRef: MatDialogRef<CheckAnswerDialogComponent>,
             @Inject(MAT_DIALOG_DATA) public data:any
   ){
+    console.log(data);
     this.userAnswer = data.userAnswer;
     this.setAnswer = data.setAnswer;
+    this.question = data.question;
   }
 
   next()

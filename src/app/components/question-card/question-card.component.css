@@ -45,13 +45,18 @@
     display: flex;
 }
 
-.answer label {
-    margin-right: 5px;
-    font-weight: bold;
-}
 
 .choice label, .answer label {
     padding: 0px 5px;
+    margin-right: 5px; 
+}
+
+.choice label {
+    font-weight: 500;
+}
+
+.answer label {
+    font-weight: bold;
 }
 
 .spoiler {

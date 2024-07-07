@@ -201,7 +201,14 @@ export class TakeTestComponent {
     this.updateAttemptInfo();
     let results = await this.calculateScore();
     console.log(results);
+    results.questions = this.sortResults(results.questions);
     this.router.navigate(["results"], { state: { results: results } });
+  }
+
+  sortResults(a: Result[])
+  {
+    a.sort((a, b) => a.questionIndex - b.questionIndex)
+    return a;
   }
 
   async calculateScore()

@@ -22,7 +22,17 @@
 }
 
 .correct {
-    background-color: green;
+    background-color: #90EE90;
+    padding: 3px 0;
+}
+
+.incorrect {
+    background-color: #D98282;
+    padding: 3px 0;
+}
+
+.answer.correct, .answer.incorrect {
+    padding: 10px 5px;
 }
 
 .choice {
@@ -38,6 +48,10 @@
 .answer label {
     margin-right: 5px;
     font-weight: bold;
+}
+
+.choice label, .answer label {
+    padding: 0px 5px;
 }
 
 .spoiler {

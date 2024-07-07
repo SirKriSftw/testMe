@@ -8,12 +8,17 @@
         {{question.question}}
     </div>
     <div class = "choices" *ngFor = "let choice of question.choices; let i = index;">
-        <div class = "choice" [ngClass] = "{'correct' : choice.choice == question.answer && userAnswer}">
+        <div class = "choice" [ngClass] = "{'correct' : choice.choice == question.answer && !isIncorrect && userAnswer != undefined, 'incorrect' : userAnswer  == choice.choice && isIncorrect}">
             <label>{{choiceLabel(i)}}</label>
             <div class = "choice">
                 {{choice.choice}}
             </div> 
         </div> 
+    </div>
+    <div class = "answer" *ngIf = "!question.choices && userAnswer != undefined"
+    [ngClass] = "{'correct' : !isIncorrect && userAnswer != undefined, 'incorrect' : isIncorrect && userAnswer != undefined}">
+        <label>You Answered: </label>
+        <span><i> {{userAnswer}}</i></span>
     </div>
     <div class = "answer" *ngIf = "!question.choices">
         <label>Answer: </label>

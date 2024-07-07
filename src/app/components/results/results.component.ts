@@ -11,7 +11,7 @@ import { Result } from '../../models/result.model';
 export class ResultsComponent {
 
   @ViewChild("resultsChart") resultsChart!: ElementRef;
-  chart: any;
+  chart?: Chart<"pie", any[], string>;
 
   results: any = {};
   displayQuestions: Result[] = [];
@@ -20,6 +20,7 @@ export class ResultsComponent {
   correctPercent: string = "";
   showCorrect: boolean = true;
   showIncorrect: boolean = true;
+  canUpdateChart: boolean = false;
 
   constructor(private router: Router) {}
 
@@ -36,25 +37,47 @@ export class ResultsComponent {
   ngAfterViewInit()
   {
     this.createChart();
+    this.canUpdateChart = true;
   }
 
   updateDisplay()
   {
     if(this.showCorrect && this.showIncorrect) this.displayQuestions = this.results.questions;
     else if(!this.showCorrect && !this.showIncorrect) this.displayQuestions = [];
-    else if (!this.showCorrect)
-    {
-      this.displayQuestions = this.results.questions.filter((q: any) => !q.isCorrect);
-    }
-    else if (!this.showIncorrect)
-    {
-      this.displayQuestions = this.results.questions.filter((q: any) => q.isCorrect);
-    }
+    else if (!this.showCorrect) this.displayQuestions = this.results.questions.filter((q: any) => !q.isCorrect);
+    else if (!this.showIncorrect) this.displayQuestions = this.results.questions.filter((q: any) => q.isCorrect);
+
+    if(this.canUpdateChart) this.updateChart();
   }
   
   calculatePercent(nCorrect: number)
   {
     return ((nCorrect / this.questionCount) * 100).toFixed(2).replace(/\.?0*$/, '');
+  }
+
+  updateChart()
+  {
+    const colors = [];
+
+    if(this.showIncorrect)
+    {
+      colors.push("#210B6F");
+    }
+    else
+    {
+      colors.push("#A2BAF6"); 
+    }
+    if(this.showCorrect)
+    {
+      colors.push("#730F9B");
+    }
+    else
+    {
+      colors.push("#A2BAF6"); 
+    }
+
+    this.chart!.data.datasets[0].backgroundColor = colors;
+    this.chart!.update();
   }
 
   createChart()
@@ -67,11 +90,13 @@ export class ResultsComponent {
         'Correct'
       ],
       datasets: [{
-        data: [this.totalWrong, this.results.totalCorrect],
+        data: [
+          this.totalWrong, 
+          this.results.totalCorrect
+        ],
         backgroundColor: [
           "#210B6F",
           "#730F9B"
-
         ],
         hoverOffset: 4,
         borderWidth: 2, 

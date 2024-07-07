@@ -17,6 +17,14 @@
     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
 }
 
+.correctness {
+    margin-right: 10px;
+}
+
+.correct {
+    background-color: green;
+}
+
 .choice {
     display: flex;
     margin-left: 5px;

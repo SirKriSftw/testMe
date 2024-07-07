@@ -198,6 +198,7 @@ export class TakeTestComponent {
   async endTest()
   {
     console.log("test over");
+    this.updateAttemptInfo();
     let results = await this.calculateScore();
     console.log(results);
     this.router.navigate(["results"], { state: { results: results } });
@@ -214,20 +215,9 @@ export class TakeTestComponent {
       if (a.isCorrect === undefined) {
         let determinedCorrect = await this.openDialog({ userAnswer: a.selectedAnswer, setAnswer: this.questionPool[i].answer });
         a.isCorrect = determinedCorrect;
-
-        if (a.isCorrect) results.totalCorrect++;
-        questions.push({question: this.questionPool[i], userAnswer: a.selectedAnswer, questionIndex: i, isCorrect: this.attemptInfo[i].isCorrect!});
-
       } 
-      else if (a.isCorrect) 
-      {
-        results.totalCorrect++;
-        questions.push({question: this.questionPool[i], questionIndex: i, isCorrect: this.attemptInfo[i].isCorrect!});
-      }
-      else
-      {
-        questions.push({question: this.questionPool[i], userAnswer: a.selectedAnswer, questionIndex: i, isCorrect: this.attemptInfo[i].isCorrect!});
-      }
+      if (a.isCorrect) results.totalCorrect++;
+      questions.push({question: this.questionPool[i], userAnswer: a.selectedAnswer, questionIndex: i, isCorrect: this.attemptInfo[i].isCorrect!});
     });
 
     await Promise.all(promises);

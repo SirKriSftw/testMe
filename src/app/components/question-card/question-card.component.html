@@ -1,17 +1,21 @@
 <div class = "question">
     <div>
+        <span class = "correctness" *ngIf = "isIncorrect != undefined">
+            <span *ngIf = "isIncorrect">❌</span>
+            <span *ngIf = "!isIncorrect">✔️</span>
+        </span>
         <span class = "number">{{index + 1}}.</span>
         {{question.question}}
     </div>
     <div class = "choices" *ngFor = "let choice of question.choices; let i = index;">
-        <div class = "choice">
+        <div class = "choice" [ngClass] = "{'correct' : choice.choice == question.answer && userAnswer}">
             <label>{{choiceLabel(i)}}</label>
             <div class = "choice">
                 {{choice.choice}}
             </div> 
         </div> 
     </div>
-    <div class = "answer">
+    <div class = "answer" *ngIf = "!question.choices">
         <label>Answer: </label>
         <div [ngClass] = "{ 'spoiler' : hideAnswers }">
             {{question.answer}}

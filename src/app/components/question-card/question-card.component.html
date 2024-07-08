@@ -28,7 +28,7 @@
         <label>You Answered: </label>
         <span class = "user-answer">{{userAnswer}}</span>
     </div>
-    <div class = "answer" *ngIf = "!question.choices?.length">
+    <div class = "answer" *ngIf = "!question.choices?.length || userAnswer === undefined">
         <label>Answer: </label>
         <div [ngClass] = "{ 'spoiler' : hideAnswers }">
             {{question.answer}}

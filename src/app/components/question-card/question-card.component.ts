@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Question } from '../../models/question.model';
 
 @Component({
@@ -14,6 +14,7 @@ export class QuestionCardComponent {
   @Input() index: number = 0;
   @Input() hideAnswers: boolean = true;
   @Input() canEdit: boolean = false;
+  @Output() editingQuestion = new EventEmitter();
 
   
   choiceLabel(i: number)
@@ -27,6 +28,6 @@ export class QuestionCardComponent {
 
   editQuestion()
   {
-    console.log("Editing quesiton: " + this.question.id);
+    this.editingQuestion.emit([this.question, this.index]);
   }
 }

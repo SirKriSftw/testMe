@@ -3,21 +3,15 @@
         <h1>{{test?.title}}</h1>
         <i>{{test?.description}}</i>
 
-        <button class = "take-test" (click) = "openDialog()" *ngIf = "hasQuestions">Take Test</button>
+        <button class = "take-test" (click) = "takeTest()" *ngIf = "hasQuestions">Take Test</button>
 
         <div class = "questions">
             <div class = "toggle">
                 <label>Hide Answers: </label>
                 <input type = "checkbox" [(ngModel)] = "hideAnswers">
             </div>
-            <div *ngFor = "let question of test?.questions; let n = index;">
-                <app-question-card 
-                [question] = "question" 
-                [index] = "n" 
-                [hideAnswers] = "hideAnswers"
-                [canEdit] = "isCreator()">
-                </app-question-card>
-            </div>
+            
+            <div #questions></div>
 
             <div class = "new" *ngIf = "isCreator()">
                 <div #new_question></div>

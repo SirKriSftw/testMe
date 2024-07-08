@@ -17,6 +17,7 @@ export class NewQuestionComponent {
   @Output() questionSaved = new EventEmitter<Question>();
   @Output() questionEdited = new EventEmitter<Question>();
   @Output() questionCancelled = new EventEmitter();
+
   question: string = "";
   answer: string = "";
   answerIndex: number = -1;
@@ -28,6 +29,20 @@ export class NewQuestionComponent {
   constructor(private questionsService: QuestionsService,
               private renderer: Renderer2
   ){}
+
+  ngOnInit()
+  {
+    if(this.questionToEdit)
+    {
+      this.question = this.questionToEdit.question;
+      this.answer = this.questionToEdit.answer;
+      if(this.questionToEdit.choices)
+      {
+        this.choices = this.questionToEdit.choices;
+        this.answerIndex = this.choices.findIndex(c => c.choice == this.answer);
+      } 
+    }
+  }
 
   handleKeyUp(e: KeyboardEvent)
   {
@@ -111,28 +126,31 @@ export class NewQuestionComponent {
   {
     let newQuestion = {
       testId: this.testId,
+      id: -1,
       question: this.question,
       answer: this.answer,
       choices: this.choices
     }
 
-    this.questionsService.saveQuestion(newQuestion).subscribe(
-      (r) => {
-        this.questionSaved.emit(r);
-      }
-    );
+    if(this.questionToEdit)
+    {
+      newQuestion.id = this.questionToEdit.id!;
+      this.questionsService.editQuestion(newQuestion).subscribe(
+        (r) => {
+          this.questionEdited.emit(r);
+        }
+      );
+    }
+    else
+    {
+      this.questionsService.saveQuestion(newQuestion).subscribe(
+        (r) => {
+          this.questionSaved.emit(r);
+        }
+      );
+    }
+
     console.log("Saving question");
-  }
-
-  editQuestion()
-  {
-    this.questionToEdit = {
-      testId: this.testId,
-      id: this.questionToEdit?.id,
-      question: this.question,
-      answer: this.answer,
-      choices: this.choices
-    }
   }
 
   cancelQuestion()

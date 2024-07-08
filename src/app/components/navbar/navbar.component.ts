@@ -25,7 +25,7 @@ export class NavbarComponent {
 
   goMake()
   {
-    this.router.navigate(["create"]);
+    this.router.navigate(["make"]);
   }
 
   goMine()

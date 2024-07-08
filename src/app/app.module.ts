@@ -23,6 +23,7 @@ import { TimerComponent } from './components/timer/timer.component';
 import { CheckAnswerDialogComponent } from './components/check-answer-dialog/check-answer-dialog.component';
 import { ResultsComponent } from './components/results/results.component';
 import { QuestionCardComponent } from './components/question-card/question-card.component';
+import { MakeComponent } from './components/make/make.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { QuestionCardComponent } from './components/question-card/question-card.
     TimerComponent,
     CheckAnswerDialogComponent,
     ResultsComponent,
-    QuestionCardComponent
+    QuestionCardComponent,
+    MakeComponent
   ],
   imports: [
     BrowserModule,

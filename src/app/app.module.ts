@@ -24,6 +24,7 @@ import { CheckAnswerDialogComponent } from './components/check-answer-dialog/che
 import { ResultsComponent } from './components/results/results.component';
 import { QuestionCardComponent } from './components/question-card/question-card.component';
 import { MakeComponent } from './components/make/make.component';
+import { AuthenticationService } from './services/authentication.service';
 
 @NgModule({
   declarations: [
@@ -52,7 +53,8 @@ import { MakeComponent } from './components/make/make.component';
     provideAnimationsAsync(),
     TestsService,
     QuestionsService,
-    DialogService
+    DialogService,
+    AuthenticationService
   ],
   bootstrap: [AppComponent]
 })

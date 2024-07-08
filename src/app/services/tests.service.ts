@@ -101,7 +101,7 @@ export class TestsService {
   getAllTestNames() : Observable<{id: number, title: string, description?: string, categoryId: number}[]>
   {
     return from(new Promise<{id: number, title: string, description?: string, categoryId: number}[]>((resolve, reject) => {
-      const tests = this.data.map(({id, title, description, categoryId})=> ({id, title, description, categoryId}));
+      const tests = this.data.filter(test => test.public).map(({id, title, description, categoryId})=> ({id, title, description, categoryId}));
       resolve(tests);
     }));
   }
@@ -136,6 +136,16 @@ export class TestsService {
         }
       ]
       resolve(categories);
+    }))
+  }
+
+  saveTest(test: Test)
+  {
+    return from(new Promise<number>((resolve, reject) => {
+      const id = this.data.length + 1;
+      test.id = id;
+      this.data.push(test);
+      resolve(id);
     }))
   }
 }

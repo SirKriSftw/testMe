@@ -4,6 +4,7 @@ import { DialogService } from '../../services/dialog.service';
 import { AuthenticationService } from '../../services/authentication.service';
 import { User } from '../../models/user.model';
 import { Test } from '../../models/test.model';
+import { TestsService } from '../../services/tests.service';
 
 @Component({
   selector: 'app-navbar',
@@ -16,10 +17,10 @@ export class NavbarComponent {
   isHovered = false;
 
   loggedInUser?: User;
-  madeTest?: Test;
 
   constructor(private dialogService: DialogService,
               private authService: AuthenticationService,
+              private testsService: TestsService,
               private router: Router){}
   
   ngOnInit()
@@ -49,9 +50,11 @@ export class NavbarComponent {
         (r) => {
           if(r != undefined)
           {
-            this.madeTest = r;
-            const id = 1;// Save test to DB here and capture the id
-            this.router.navigate(["test/" + id]);
+            this.testsService.saveTest(r).subscribe(
+              (r) => {
+                this.router.navigate(["test/" + r]);
+              }
+            );            
           }
         }
       );

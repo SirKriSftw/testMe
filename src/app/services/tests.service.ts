@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable, from } from 'rxjs';
 import { Test } from '../models/test.model';
+import { Cateogry } from '../models/category';
 
 @Injectable({
   providedIn: 'root'
@@ -115,7 +116,7 @@ export class TestsService {
 
   getAllCategories()
   {
-    return from(new Promise<{id: number, name: string}[]>((resolve, reject) => {
+    return from(new Promise<Cateogry[]>((resolve, reject) => {
       const categories = [
         {
           id: 1,

@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { TestsService } from '../../services/tests.service';
 import { Test } from '../../models/test.model';
 import { Router } from '@angular/router';
+import { Cateogry } from '../../models/category';
 
 @Component({
   selector: 'app-tests',
@@ -14,7 +15,7 @@ export class TestsComponent {
     displayTests: Test[] = [];
     searchText: string = "";
     category: string = "0";
-    categories: {id: number, name: string}[] = [];
+    categories: Cateogry[] = [];
 
     constructor(private testsService: TestsService,
                 private router: Router
@@ -28,7 +29,7 @@ export class TestsComponent {
           this.displayTests = this.tests;
         }
       );
-      
+
       this.testsService.getAllCategories().subscribe(
         (r) => {
           this.categories = r;

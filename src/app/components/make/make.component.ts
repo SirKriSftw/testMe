@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { AuthenticationService } from '../../services/authentication.service';
 import { TestsService } from '../../services/tests.service';
+import { Cateogry } from '../../models/category';
 
 
 @Component({
@@ -10,8 +11,14 @@ import { TestsService } from '../../services/tests.service';
 })
 export class MakeComponent {
 
+  categories: Cateogry[] = [];
 
   constructor(private authService: AuthenticationService,
               private testService: TestsService
   ){}
+
+  ngOnInit()
+  {
+
+  }
 }

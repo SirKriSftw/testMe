@@ -11,7 +11,7 @@ export class AuthenticationService {
 
   loggedInUser()
   {
-    return from(new Promise<User>((resolve, reject) => {
+    return from(new Promise<User | undefined>((resolve, reject) => {
       const user = {
         id: 1,
         email: "my@email.com",

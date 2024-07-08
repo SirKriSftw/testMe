@@ -31,7 +31,7 @@ export class MakeDialogComponent {
   {
     this.authService.loggedInUser().subscribe(
       (r) => {
-        this.test.creatorId = r.id;
+        if(r != undefined) this.test.creatorId = r.id;
       }
     );
 

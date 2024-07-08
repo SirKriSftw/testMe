@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { DialogService } from '../../services/dialog.service';
+import { AuthenticationService } from '../../services/authentication.service';
+import { User } from '../../models/user.model';
 
 @Component({
   selector: 'app-navbar',
@@ -12,8 +14,20 @@ export class NavbarComponent {
   logoHoverUrl = "assets/images/LogoHover.png";
   isHovered = false;
 
+  loggedInUser?: User;
+
   constructor(private dialogService: DialogService,
+              private authService: AuthenticationService,
               private router: Router){}
+  
+  ngOnInit()
+  {
+    this.authService.loggedInUser().subscribe(
+      (r) => {
+        this.loggedInUser = r;
+      }
+    );
+  }
 
   goHome()
   {
@@ -27,11 +41,11 @@ export class NavbarComponent {
 
   goMake()
   {
-    this.dialogService.openDialog("make");
+    this.loggedInUser ? this.dialogService.openDialog("make") : this.router.navigate(["login"]);
   }
 
   goMine()
   {
-    this.router.navigate(["profile"]);
+    this.loggedInUser ? this.router.navigate(["profile"]) : this.router.navigate(["login"]);
   }
 }

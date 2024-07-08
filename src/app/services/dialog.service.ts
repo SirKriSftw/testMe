@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { TakeTestDialogComponent } from '../components/take-test-dialog/take-test-dialog.component';
 import { CheckAnswerDialogComponent } from '../components/check-answer-dialog/check-answer-dialog.component';
+import { MakeDialogComponent } from '../components/make-dialog/make-dialog.component';
 
 @Injectable({
   providedIn: 'root'
@@ -28,10 +29,15 @@ export class DialogService {
         width: "20%"
       })
     }
+    else if (dialog == "make")
+      {
+        return this.dialog.open(MakeDialogComponent, {
+          width: "20%"
+        })
+      }
 
-
-    return this.dialog.open(TakeTestDialogComponent, {
-      width: "50%"
+    return this.dialog.open(MakeDialogComponent, {
+      width: "20%"
     })
 
 

@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { DialogService } from '../../services/dialog.service';
 
 @Component({
   selector: 'app-navbar',
@@ -11,7 +12,8 @@ export class NavbarComponent {
   logoHoverUrl = "assets/images/LogoHover.png";
   isHovered = false;
 
-  constructor(private router: Router){}
+  constructor(private dialogService: DialogService,
+              private router: Router){}
 
   goHome()
   {
@@ -25,7 +27,7 @@ export class NavbarComponent {
 
   goMake()
   {
-    this.router.navigate(["make"]);
+    this.dialogService.openDialog("make");
   }
 
   goMine()

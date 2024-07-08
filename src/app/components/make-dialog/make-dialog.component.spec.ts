@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { MakeComponent } from './make.component';
+import { MakeDialogComponent } from './make-dialog.component';
 
-describe('MakeComponent', () => {
-  let component: MakeComponent;
-  let fixture: ComponentFixture<MakeComponent>;
+describe('MakeDialogComponent', () => {
+  let component: MakeDialogComponent;
+  let fixture: ComponentFixture<MakeDialogComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [MakeComponent]
+      declarations: [MakeDialogComponent]
     })
     .compileComponents();
     
-    fixture = TestBed.createComponent(MakeComponent);
+    fixture = TestBed.createComponent(MakeDialogComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

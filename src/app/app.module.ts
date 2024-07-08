@@ -23,8 +23,8 @@ import { TimerComponent } from './components/timer/timer.component';
 import { CheckAnswerDialogComponent } from './components/check-answer-dialog/check-answer-dialog.component';
 import { ResultsComponent } from './components/results/results.component';
 import { QuestionCardComponent } from './components/question-card/question-card.component';
-import { MakeComponent } from './components/make/make.component';
 import { AuthenticationService } from './services/authentication.service';
+import { MakeDialogComponent } from './components/make-dialog/make-dialog.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +40,7 @@ import { AuthenticationService } from './services/authentication.service';
     CheckAnswerDialogComponent,
     ResultsComponent,
     QuestionCardComponent,
-    MakeComponent
+    MakeDialogComponent
   ],
   imports: [
     BrowserModule,

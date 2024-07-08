@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { DialogService } from '../../services/dialog.service';
 import { AuthenticationService } from '../../services/authentication.service';
 import { User } from '../../models/user.model';
+import { Test } from '../../models/test.model';
 
 @Component({
   selector: 'app-navbar',
@@ -15,6 +16,7 @@ export class NavbarComponent {
   isHovered = false;
 
   loggedInUser?: User;
+  madeTest?: Test;
 
   constructor(private dialogService: DialogService,
               private authService: AuthenticationService,
@@ -41,7 +43,23 @@ export class NavbarComponent {
 
   goMake()
   {
-    this.loggedInUser ? this.dialogService.openDialog("make") : this.router.navigate(["login"]);
+    if(this.loggedInUser)
+    {
+      this.dialogService.openDialog("make").afterClosed().subscribe(
+        (r) => {
+          if(r != undefined)
+          {
+            this.madeTest = r;
+            const id = 1;// Save test to DB here and capture the id
+            this.router.navigate(["test/" + id]);
+          }
+        }
+      );
+    }
+    else
+    {
+      this.router.navigate(["login"]);
+    } 
   }
 
   goMine()

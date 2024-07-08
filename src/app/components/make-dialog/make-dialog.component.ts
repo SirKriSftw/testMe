@@ -23,6 +23,9 @@ export class MakeDialogComponent {
     public: false
   }
 
+  error: string = "Title is required when making a test.";
+  hasError: boolean = false;
+
   constructor(public dialogRef: MatDialogRef<MakeDialogComponent>,
               private authService: AuthenticationService,
               private testService: TestsService){}
@@ -44,6 +47,7 @@ export class MakeDialogComponent {
   
   makeTest()
   {
-    this.dialogRef.close(this.test);
+    this.test.title === "" ? this.hasError = true : this.hasError = false;
+    if(!this.hasError) this.dialogRef.close(this.test);
   }
 }

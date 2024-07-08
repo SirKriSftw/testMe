@@ -2,13 +2,16 @@
     <h2 class = "center">
        Make a New Test
     </h2>
+    <div class = "error" *ngIf = "hasError">
+        {{error}}
+    </div>
     <div class = "content">
         <div class = "bold row">
-            <label>Test Title:</label>
+            <label>Title:</label>
             <input [(ngModel)] = "test.title" name = "title">
         </div>
         <div class = "bold row">
-            <label>Test Description:</label>
+            <label>Description:</label>
             <textarea [(ngModel)] = "test.description" name = "description"> </textarea>
         </div>
         <div class = "bold row">
@@ -24,6 +27,6 @@
         </div>
     </div>
     <div class = "btn-container" mat-dialog-actions>
-        <button class = "make" (click) = "makeTest">Make Test</button>
+        <button class = "make" (click) = "makeTest()">Make Test</button>
     </div>
 </div>

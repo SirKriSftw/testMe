@@ -1,1 +1,29 @@
-<p>make-dialog works!</p>
+<div class = "container">
+    <h2 class = "center">
+       Make a New Test
+    </h2>
+    <div class = "content">
+        <div class = "bold row">
+            <label>Test Title:</label>
+            <input [(ngModel)] = "test.title" name = "title">
+        </div>
+        <div class = "bold row">
+            <label>Test Description:</label>
+            <textarea [(ngModel)] = "test.description" name = "description"> </textarea>
+        </div>
+        <div class = "bold row">
+            <label>Category:</label>
+            <select [(ngModel)] = "test.categoryId" name = "categoryId">
+                <option value = "0"></option>
+                <option [value] = "c.id" *ngFor = "let c of categories">{{c.name}}</option>
+            </select>
+        </div>
+        <div class = "bold row">
+            <label>Public?:</label>
+            <input type = "checkbox" [(ngModel)] = "test.public" name = "public">
+        </div>
+    </div>
+    <div class = "btn-container" mat-dialog-actions>
+        <button class = "make" (click) = "makeTest">Make Test</button>
+    </div>
+</div>

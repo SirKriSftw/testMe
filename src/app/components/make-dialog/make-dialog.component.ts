@@ -4,6 +4,7 @@ import { AuthenticationService } from '../../services/authentication.service';
 import { Cateogry } from '../../models/category';
 import { User } from '../../models/user.model';
 import { MatDialogRef } from '@angular/material/dialog';
+import { Test } from '../../models/test.model';
 
 @Component({
   selector: 'app-make-dialog',
@@ -13,7 +14,14 @@ import { MatDialogRef } from '@angular/material/dialog';
 export class MakeDialogComponent {
 
   categories: Cateogry[] = [];
-  loggedInUser?: User;
+  test: Test = {
+    id: -1,
+    creatorId: 0,
+    categoryId: 0,
+    title: "",
+    description: "",
+    public: false
+  }
 
   constructor(public dialogRef: MatDialogRef<MakeDialogComponent>,
               private authService: AuthenticationService,
@@ -23,7 +31,7 @@ export class MakeDialogComponent {
   {
     this.authService.loggedInUser().subscribe(
       (r) => {
-        this.loggedInUser = r;
+        this.test.creatorId = r.id;
       }
     );
 
@@ -36,6 +44,6 @@ export class MakeDialogComponent {
   
   makeTest()
   {
-    
+    this.dialogRef.close(this.test);
   }
 }

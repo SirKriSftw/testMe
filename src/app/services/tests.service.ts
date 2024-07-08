@@ -97,6 +97,14 @@ export class TestsService {
     }));
   }
 
+  getAllTestNames() : Observable<{id: number, title: string, description?: string}[]>
+  {
+    return from(new Promise<{id: number, title: string, description?: string}[]>((resolve, reject) => {
+      const tests = this.data.map(({id, title, description})=> ({id, title, description}));
+      resolve(tests);
+    }));
+  }
+
   getTest(id: number) : Observable<Test | undefined>
   {
     return from(new Promise<Test | undefined>((resolve, reject) => {

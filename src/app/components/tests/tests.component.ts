@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 })
 export class TestsComponent {
 
-    tests: Test[] = [];
+    tests: any[] = [];
     displayTests: Test[] = [];
     searchText: string = "";
     category: string = "0";
@@ -21,7 +21,7 @@ export class TestsComponent {
 
     ngOnInit()
     {
-      this.testsService.getAllTests().subscribe(
+      this.testsService.getAllTestNames().subscribe(
         (r) => {
           this.tests = r;
           this.displayTests = this.tests;

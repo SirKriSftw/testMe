@@ -1,9 +1,14 @@
 <div class = "question">
-    <div>
-        <span class = "correctness" *ngIf = "isCorrect != undefined">
+    <div class = "top">
+        <span *ngIf = "isCorrect != undefined">
             <span *ngIf = "!isCorrect">❌</span>
             <span *ngIf = "isCorrect">✔️</span>
         </span>
+
+        <span *ngIf = "canEdit">
+            <mat-icon fontIcon = "edit" (click) = "editQuestion()"></mat-icon>
+        </span>
+
         <span class = "number">{{index + 1}}.</span>
         {{question.question}}
     </div>

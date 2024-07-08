@@ -9,11 +9,22 @@ export class QuestionsService {
 
   constructor() { }
 
+  tempId: number = 5;
+
   saveQuestion(q: Question) : Observable<Question>
   {
     return from(new Promise<Question>((resolve, reject) => {
-      q.id = 5;
+      q.id = this.tempId;
+      this.tempId++;
       resolve(q);
     }))
   }
+
+  editQuestion(q: Question) : Observable<Question>
+  {
+    return from(new Promise<Question>((resolve, reject) => {
+      resolve(q);
+    }))
+  }
+
 }

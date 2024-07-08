@@ -13,7 +13,9 @@ export class NewQuestionComponent {
   @ViewChild('questionInput', { read: ViewContainerRef}) questionInput!: ViewContainerRef;
 
   @Input() testId: number = 0;
+  @Input() questionToEdit?: Question;
   @Output() questionSaved = new EventEmitter<Question>();
+  @Output() questionEdited = new EventEmitter<Question>();
   @Output() questionCancelled = new EventEmitter();
   question: string = "";
   answer: string = "";
@@ -120,6 +122,17 @@ export class NewQuestionComponent {
       }
     );
     console.log("Saving question");
+  }
+
+  editQuestion()
+  {
+    this.questionToEdit = {
+      testId: this.testId,
+      id: this.questionToEdit?.id,
+      question: this.question,
+      answer: this.answer,
+      choices: this.choices
+    }
   }
 
   cancelQuestion()

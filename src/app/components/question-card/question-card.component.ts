@@ -13,6 +13,7 @@ export class QuestionCardComponent {
   @Input() userAnswer?: string;
   @Input() index: number = 0;
   @Input() hideAnswers: boolean = true;
+  @Input() canEdit: boolean = false;
 
   
   choiceLabel(i: number)
@@ -22,5 +23,10 @@ export class QuestionCardComponent {
     const optionLetter = String.fromCharCode(asciiValue);
 
     return `${optionLetter}.`
+  }
+
+  editQuestion()
+  {
+    console.log("Editing quesiton: " + this.question.id);
   }
 }

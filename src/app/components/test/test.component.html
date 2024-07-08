@@ -11,7 +11,12 @@
                 <input type = "checkbox" [(ngModel)] = "hideAnswers">
             </div>
             <div *ngFor = "let question of test?.questions; let n = index;">
-                <app-question-card [question] = "question" [index] = "n" [hideAnswers] = "hideAnswers"></app-question-card>
+                <app-question-card 
+                [question] = "question" 
+                [index] = "n" 
+                [hideAnswers] = "hideAnswers"
+                [canEdit] = "isCreator()">
+                </app-question-card>
             </div>
 
             <div class = "new" *ngIf = "isCreator()">

@@ -1,16 +1,21 @@
 <nav class = "navbar">
     <div class = "left section">
-        <img [src] = "logoUrl" (click) = "goHome()">
+        <img [src] = "isHovered ? logoHoverUrl : logoUrl" 
+        (click) = "goHome()" 
+        (mouseover) = "isHovered = true"
+        (mouseout) = "isHovered = false">
     </div>
     <div class = "right section">
-        <i>
-            Link 1
-        </i>
-        <i>
-            Link 2
-        </i>
-        <i>
-            Link 3
-        </i>
+        <ul>
+            <li (click) = "goFind()">
+                Find
+            </li>
+            <li (click) = "goMake()">
+                Make
+            </li>
+            <li (click) = "goMine()">
+                Mine
+            </li>
+        </ul>
     </div>
 </nav>

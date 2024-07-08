@@ -22,10 +22,32 @@
 .left img {
     width: 60px;
     height: 50px;
-    padding: 5px;
+    padding: 3px;
     cursor: pointer;
+    transition: filter 1s ease;
 }
+
 
 .right {
     padding-right: 10px;
+    margin-right: 10px;
+}
+
+.right ul {
+    display: flex;
+    list-style: none;
+    gap: 20px;
+}
+
+.right li {
+    padding: 5px;
+    transition: background-color 0.3s;
+}
+
+.right li:hover {
+    cursor: pointer;
+    padding: 4px;
+    color: #DEA2F6;
+    background-color: #730F9B;
+    border: 1px solid #210B6F;
 }

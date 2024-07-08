@@ -83,10 +83,10 @@ export class TestsService {
     },
     {
       id: 4,
-      creatorId: 1,
+      creatorId: 2,
       categoryId: 4,
       title: "Fourth test",
-      public: true
+      public: false
     },
   ];
   

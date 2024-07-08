@@ -4,6 +4,7 @@ import { Test } from '../../models/test.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NewQuestionComponent } from '../new-question/new-question.component';
 import { DialogService } from '../../services/dialog.service';
+import { AuthenticationService } from '../../services/authentication.service';
 
 @Component({
   selector: 'app-test',
@@ -16,11 +17,13 @@ export class TestComponent {
 
   test?: Test;
   id?: number;
+  loggedInId?: number;
   hideAnswers: boolean = true;
   hasQuestions: boolean = false;
 
   constructor(private testsService: TestsService,
               private dialogService: DialogService,
+              private authService: AuthenticationService,
               private route: ActivatedRoute,
               private router: Router
   ){}
@@ -28,7 +31,35 @@ export class TestComponent {
   ngOnInit()
   {
     this.id = parseInt(this.route.snapshot.paramMap.get("id")!);
-    this.testsService.getTest(this.id).subscribe(
+    this.route.paramMap.subscribe(p => {
+      const urlID = p.get("id");
+      if(urlID) this.id = parseInt(urlID);
+      if(this.id) this.getTestInfo();
+    });
+
+    this.authService.loggedInUser().subscribe(
+      (r) => {
+        this.loggedInId = r?.id;
+        if(!this.isCreator() && !this.test?.public)
+        {
+          this.router.navigate(["tests"])
+        }
+      }
+    );
+  }
+
+  @HostListener("document:keyup", ["$event"])
+  addKeyUp(e: KeyboardEvent)
+  {
+    if(e.key === "+" && this.isCreator())
+    {
+      this.newQuestion();
+    } 
+  }
+
+  getTestInfo()
+  {
+    this.testsService.getTest(this.id!).subscribe(
       (r) => {
         this.test = r;
         if(this.test?.questions)
@@ -43,15 +74,10 @@ export class TestComponent {
     );
   }
 
-  @HostListener("document:keyup", ["$event"])
-  addKeyUp(e: KeyboardEvent)
+  isCreator()
   {
-    if(e.key === "+")
-    {
-      this.newQuestion();
-    } 
+    return this.loggedInId == this.test?.creatorId;
   }
-
 
   choiceLabel(i: number)
   {

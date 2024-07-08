@@ -14,7 +14,7 @@
                 <app-question-card [question] = "question" [index] = "n" [hideAnswers] = "hideAnswers"></app-question-card>
             </div>
 
-            <div class = "new">
+            <div class = "new" *ngIf = "isCreator()">
                 <div #new_question></div>
                 <button class = "new-btn" (click) = "newQuestion()">
                     +

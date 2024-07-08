@@ -36,7 +36,7 @@ export class NewQuestionComponent {
     {
       this.question = this.questionToEdit.question;
       this.answer = this.questionToEdit.answer;
-      if(this.questionToEdit.choices)
+      if(this.questionToEdit.choices?.length)
       {
         this.choices = this.questionToEdit.choices;
         this.answerIndex = this.choices.findIndex(c => c.choice == this.answer);

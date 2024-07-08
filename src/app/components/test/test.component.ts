@@ -7,6 +7,7 @@ import { DialogService } from '../../services/dialog.service';
 import { AuthenticationService } from '../../services/authentication.service';
 import { QuestionCardComponent } from '../question-card/question-card.component';
 import { Question } from '../../models/question.model';
+import { Choice } from '../../models/choice.model';
 
 @Component({
   selector: 'app-test',
@@ -94,6 +95,10 @@ export class TestComponent {
 
   loadQuestion(question: Question, i: number)
   {
+    const originalQuestion: Question = { ...question};
+    if(question.choices) originalQuestion.choices = [...question.choices];
+    
+
     const questionCard = this.questionsContainer.createComponent(QuestionCardComponent);
     this.questionsContainer.move(questionCard.hostView, i);
     if(this.test?.questions)
@@ -121,7 +126,8 @@ export class TestComponent {
           );
 
           editQ.instance.questionCancelled.subscribe(() => {
-            this.loadQuestion(question, i)
+            console.log(originalQuestion);
+            this.loadQuestion(originalQuestion, i)
             editQ.destroy();
           })
           

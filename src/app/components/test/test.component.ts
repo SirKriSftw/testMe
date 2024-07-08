@@ -66,9 +66,7 @@ export class TestComponent {
   {
     const newQ = this.questionContainer.createComponent(NewQuestionComponent);
     newQ.instance.testId = this.id!;
-    setTimeout(() => {
-      newQ.location.nativeElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    }, 0);
+
 
     newQ.instance.questionSaved.subscribe((r) => {
       if(!this.test?.questions) this.test!.questions = [];

@@ -1,17 +1,14 @@
 <div class = "wrapper">
     <div class = "search">
-        <form (ngSubmit) = "search()">
+        <form (change) = "search()">
             <input type = "text" [(ngModel)] = "searchText" placeholder = "Search for a test" name = "searchInput">
             <select [(ngModel)] = "category" name = "categorySelect">
-                <option value = "0" selected>Category Select</option>
+                <option value = "0" selected></option>
                 <option value = "1">Category 1</option>
                 <option value = "2">Category 2</option>
                 <option value = "3">Category 3</option>
                 <option value = "4">Category 4</option>
             </select>
-            <button type = "submit">
-                Search
-            </button>
         </form>
     </div>
     <div class = "container">

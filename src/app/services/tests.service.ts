@@ -97,10 +97,10 @@ export class TestsService {
     }));
   }
 
-  getAllTestNames() : Observable<{id: number, title: string, description?: string}[]>
+  getAllTestNames() : Observable<{id: number, title: string, description?: string, categoryId: number}[]>
   {
-    return from(new Promise<{id: number, title: string, description?: string}[]>((resolve, reject) => {
-      const tests = this.data.map(({id, title, description})=> ({id, title, description}));
+    return from(new Promise<{id: number, title: string, description?: string, categoryId: number}[]>((resolve, reject) => {
+      const tests = this.data.map(({id, title, description, categoryId})=> ({id, title, description, categoryId}));
       resolve(tests);
     }));
   }

@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { AuthenticationService } from '../../services/authentication.service';
+import { TestsService } from '../../services/tests.service';
+
 
 @Component({
   selector: 'app-make',
@@ -7,4 +10,8 @@ import { Component } from '@angular/core';
 })
 export class MakeComponent {
 
+
+  constructor(private authService: AuthenticationService,
+              private testService: TestsService
+  ){}
 }

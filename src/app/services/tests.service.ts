@@ -112,4 +112,29 @@ export class TestsService {
       resolve(test);
     }))
   }
+
+  getAllCategories()
+  {
+    return from(new Promise<{id: number, name: string}[]>((resolve, reject) => {
+      const categories = [
+        {
+          id: 1,
+          name: "Cateogry 1"
+        },
+        {
+          id: 2,
+          name: "Cateogry 2"
+        },
+        {
+          id: 3,
+          name: "Cateogry 3"
+        },
+        {
+          id: 4,
+          name: "Cateogry 4"
+        }
+      ]
+      resolve(categories);
+    }))
+  }
 }

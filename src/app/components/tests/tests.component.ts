@@ -14,6 +14,7 @@ export class TestsComponent {
     displayTests: Test[] = [];
     searchText: string = "";
     category: string = "0";
+    categories: {id: number, name: string}[] = [];
 
     constructor(private testsService: TestsService,
                 private router: Router
@@ -25,6 +26,12 @@ export class TestsComponent {
         (r) => {
           this.tests = r;
           this.displayTests = this.tests;
+        }
+      );
+      
+      this.testsService.getAllCategories().subscribe(
+        (r) => {
+          this.categories = r;
         }
       );
     }

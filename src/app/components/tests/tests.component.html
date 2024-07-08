@@ -4,10 +4,7 @@
             <input type = "text" [(ngModel)] = "searchText" placeholder = "Search for a test" name = "searchInput">
             <select [(ngModel)] = "category" name = "categorySelect">
                 <option value = "0" selected></option>
-                <option value = "1">Category 1</option>
-                <option value = "2">Category 2</option>
-                <option value = "3">Category 3</option>
-                <option value = "4">Category 4</option>
+                <option *ngFor = "let c of categories" [value] = "c.id">{{c.name}}</option>
             </select>
         </form>
     </div>

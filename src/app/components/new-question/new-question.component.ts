@@ -134,7 +134,7 @@ export class NewQuestionComponent {
 
     if(this.questionToEdit)
     {
-      newQuestion.id = this.questionToEdit.quesId!;
+      newQuestion.id = this.questionToEdit.questionId!;
       this.questionsService.editQuestion(newQuestion).subscribe(
         (r) => {
           this.questionEdited.emit(r);

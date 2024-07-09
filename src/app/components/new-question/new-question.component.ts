@@ -147,6 +147,7 @@ export class NewQuestionComponent {
     {
       this.questionsService.saveQuestion(newQuestion).subscribe(
         (r) => {
+          console.log(r);
           this.questionSaved.emit(r);
         }
       );

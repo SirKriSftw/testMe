@@ -20,15 +20,15 @@
             </div> 
         </div> 
     </div>
-    <div class = "incorrect" *ngIf = "userAnswer == undefined && !isCorrect && isCorrect != undefined">
+    <div class = "incorrect" *ngIf = "isResults && !isCorrect && isCorrect != undefined">
        <div class = "no-answer">You did not answer :(</div>
     </div>
-    <div class = "answer" *ngIf = "!question.choices && userAnswer != undefined"
+    <div class = "answer" *ngIf = "isResults && !question.choices?.length && userAnswer != ''"
     [ngClass] = "{'correct' : isCorrect && userAnswer != undefined, 'incorrect' : !isCorrect && userAnswer != undefined}">
         <label>You Answered: </label>
         <span class = "user-answer">{{userAnswer}}</span>
     </div>
-    <div class = "answer" *ngIf = "!question.choices?.length || userAnswer === undefined">
+    <div class = "answer" *ngIf = "!question.choices?.length || !isResults">
         <label>Answer: </label>
         <div [ngClass] = "{ 'spoiler' : hideAnswers }">
             {{question.answer}}

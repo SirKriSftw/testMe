@@ -10,6 +10,7 @@ export class QuestionCardComponent {
 
   @Input() question!: Question;
   @Input() isCorrect?: boolean;
+  @Input() isResults: boolean = false;
   @Input() userAnswer?: string;
   @Input() index: number = 0;
   @Input() hideAnswers: boolean = true;

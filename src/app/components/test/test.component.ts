@@ -23,7 +23,6 @@ export class TestComponent {
   id?: number;
   loggedInId?: number;
   hideAnswers: boolean = true;
-  hasQuestions: boolean = false;
 
   constructor(private testsService: TestsService,
               private dialogService: DialogService,
@@ -39,6 +38,11 @@ export class TestComponent {
     {
       this.newQuestion();
     } 
+  }
+
+  hasQuestions()
+  {
+    return this.test?.questions?.length != 0;
   }
 
   ngOnInit()
@@ -68,8 +72,7 @@ export class TestComponent {
 
         if(this.test?.questions)
         {
-          if(this.test.questions.length > 0) this.hasQuestions = true;
-          if(this.hasQuestions)
+          if(this.hasQuestions())
           {
             this.test.questions.forEach((q, i) => {
               this.loadQuestion(q, i);
@@ -104,8 +107,6 @@ export class TestComponent {
     newQ.instance.questionSaved.subscribe((r) => {
       if(!this.test?.questions) this.test!.questions = [];
       this.test?.questions?.push(r);
-      console.log(r);
-      this.hasQuestions = true;
       newQ.destroy();
       this.loadQuestion(r, this.test!.questions!.length - 1);
     })

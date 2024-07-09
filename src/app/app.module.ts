@@ -4,6 +4,7 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 
 // Modules
 import { AppRoutingModule } from './app-routing.module';
+import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatTooltipModule } from '@angular/material/tooltip';
@@ -31,6 +32,7 @@ import { QuestionCardComponent } from './components/question-card/question-card.
 import { MakeDialogComponent } from './components/make-dialog/make-dialog.component';
 
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -53,7 +55,8 @@ import { MakeDialogComponent } from './components/make-dialog/make-dialog.compon
     FormsModule,
     MatDialogModule,
     MatTooltipModule,
-    MatIconModule
+    MatIconModule,
+    HttpClientModule
   ],
   providers: [
     provideAnimationsAsync(),

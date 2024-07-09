@@ -52,7 +52,7 @@ export class NavbarComponent {
           {
             this.testsService.saveTest(r).subscribe(
               (r) => {
-                this.router.navigate(["test", r]);
+                this.router.navigate(["test", r.testId]);
               }
             );            
           }

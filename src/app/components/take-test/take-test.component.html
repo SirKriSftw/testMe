@@ -20,14 +20,14 @@
         </div>
         <div class = "question">
             <span class = "number">{{questionIndex + 1}}.</span>
-            {{currentQuestion?.question}}
+            {{currentQuestion?.questionText}}
         </div>
         <div class = "choices" *ngFor = "let choice of currentChoices; let i = index;">
             <div class = "choice">
-                <input type = "radio" id = "choice{{i}}" name = "choices" value = "{{choice.choice}}" [(ngModel)] = "currentAnswer">
+                <input type = "radio" id = "choice{{i}}" name = "choices" value = "{{choice.choiceText}}" [(ngModel)] = "currentAnswer">
                 <label>{{choiceLabel(i)}}</label>
                 <div class = "choice">
-                    {{choice.choice}}
+                    {{choice.choiceText}}
                 </div> 
             </div> 
         </div>

@@ -1,9 +1,9 @@
 import { Choice } from "./choice.model";
 
 export interface Question {
-    id?: number;
+    quesId?: number;
     testId: number;
-    question: string;
+    questionText: string;
     answer: string;
     choices?: Choice[];
     userAnswer?: string;

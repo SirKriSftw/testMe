@@ -15,12 +15,12 @@ export class MakeDialogComponent {
 
   categories: Cateogry[] = [];
   test: Test = {
-    id: -1,
+    testId: -1,
     creatorId: 0,
     categoryId: 0,
     title: "",
     description: "",
-    public: false
+    isPublic: false
   }
 
   error: string = "Title is required when making a test.";

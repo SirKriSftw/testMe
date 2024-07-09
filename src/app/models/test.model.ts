@@ -1,12 +1,12 @@
 import { Question } from "./question.model";
 
 export interface Test {
-    id: number;
+    testId: number;
     creatorId: number;
     categoryId: number;
     title: string;
     description?: string;
-    public?: boolean;
+    isPublic?: boolean;
     questions?: Question[];
   }
   

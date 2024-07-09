@@ -1,39 +1,24 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { Observable, from } from 'rxjs';
 import { Test } from '../models/test.model';
 import { Cateogry } from '../models/category';
-import { DATA } from './dummy-data';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TestsService {
-
-  constructor() { }
-  data = DATA;
+  private apiUrl = 'http://localhost:5257/api/tests';
+  constructor(private http: HttpClient) { }
   
-  getAllTests() : Observable<Test[]>
+  getAllTestNames() : Observable<{testId: number, title: string, description?: string, categoryId: number}[]>
   {
-    return from(new Promise<Test[]>((resolve, reject) => {
-      const tests = this.data;
-      resolve(tests);
-    }));
-  }
-
-  getAllTestNames() : Observable<{id: number, title: string, description?: string, categoryId: number}[]>
-  {
-    return from(new Promise<{id: number, title: string, description?: string, categoryId: number}[]>((resolve, reject) => {
-      const tests = this.data.filter(test => test.public).map(({id, title, description, categoryId})=> ({id, title, description, categoryId}));
-      resolve(tests);
-    }));
+    return this.http.get<Test[]>(`${this.apiUrl}/All/Names`)
   }
 
   getTest(id: number) : Observable<Test | undefined>
   {
-    return from(new Promise<Test | undefined>((resolve, reject) => {
-      const test = this.data.find(t => t.id === id);
-      resolve(test);
-    }))
+    return this.http.get<Test>(`${this.apiUrl}/${id}`);
   }
 
   getAllCategories()
@@ -63,11 +48,6 @@ export class TestsService {
 
   saveTest(test: Test)
   {
-    return from(new Promise<number>((resolve, reject) => {
-      const id = this.data.length + 1;
-      test.id = id;
-      this.data.push(test);
-      resolve(id);
-    }))
+    return this.http.post<Test>(this.apiUrl, test);
   }
 }

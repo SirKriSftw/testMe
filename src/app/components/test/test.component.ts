@@ -62,7 +62,7 @@ export class TestComponent {
     this.testsService.getTest(this.id!).subscribe(
       (r) => {
         this.test = r;
-        if(!this.test?.public && !this.isCreator()) this.router.navigate(["tests"]);
+        if(!this.test?.isPublic && !this.isCreator()) this.router.navigate(["tests"]);
         if(this.test == undefined) this.router.navigate(["tests"]);
 
         if(this.test?.questions)
@@ -75,6 +75,9 @@ export class TestComponent {
             })
           }
         }
+      },
+      (e) => {
+        this.router.navigate(["tests"]);
       }
     );
   }
@@ -157,7 +160,7 @@ export class TestComponent {
   takeTest()
   {
     this.dialogService.openDialog("take-test").afterClosed().subscribe(r => {
-      if(r != undefined) this.router.navigate(["/take/test/" + this.test?.id], { state: { info: r }});
+      if(r != undefined) this.router.navigate(["/take/test/" + this.test?.testId], { state: { info: r }});
     })
   }
 }

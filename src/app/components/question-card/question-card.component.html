@@ -10,13 +10,13 @@
         </span>
 
         <span class = "number">{{index + 1}}.</span>
-        {{question.question}}
+        {{question.questionText}}
     </div>
     <div class = "choices" *ngFor = "let choice of question.choices; let i = index;">
-        <div class = "choice" [ngClass] = "{'correct' : choice.choice == question.answer && isCorrect != undefined, 'incorrect' : userAnswer  == choice.choice && !isCorrect}">
+        <div class = "choice" [ngClass] = "{'correct' : choice.choiceText == question.answer && isCorrect != undefined, 'incorrect' : userAnswer  == choice.choiceText && !isCorrect}">
             <label>{{choiceLabel(i)}}</label>
             <div class = "choice">
-                {{choice.choice}}
+                {{choice.choiceText}}
             </div> 
         </div> 
     </div>

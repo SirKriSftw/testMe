@@ -229,7 +229,7 @@ export class TakeTestComponent {
           { 
             userAnswer: a.selectedAnswer, 
             setAnswer: this.questionPool[i].answer, 
-            question: this.questionPool[i].question 
+            question: this.questionPool[i].questionText 
           });
         a.isCorrect = determinedCorrect;
       }

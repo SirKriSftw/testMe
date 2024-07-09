@@ -1,6 +1,6 @@
 export interface Choice {
-    id?: number;
+    choiceId?: number;
     questionId?: number;
-    choice: string;
+    choiceText: string;
   }
   

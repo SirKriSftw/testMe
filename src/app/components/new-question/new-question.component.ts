@@ -34,12 +34,12 @@ export class NewQuestionComponent {
   {
     if(this.questionToEdit)
     {
-      this.question = this.questionToEdit.question;
+      this.question = this.questionToEdit.questionText;
       this.answer = this.questionToEdit.answer;
       if(this.questionToEdit.choices?.length)
       {
         this.choices = this.questionToEdit.choices;
-        this.answerIndex = this.choices.findIndex(c => c.choice == this.answer);
+        this.answerIndex = this.choices.findIndex(c => c.choiceText == this.answer);
       } 
     }
   }
@@ -76,7 +76,7 @@ export class NewQuestionComponent {
     if(this.choices.length == 0) this.answer = "";
     this.choices.push(
       {
-        choice: ""
+        choiceText: ""
       }
     );
   }
@@ -102,13 +102,13 @@ export class NewQuestionComponent {
 
     if(this.answerIndex != -1)
     {
-      if(this.choices[this.answerIndex].choice != "") this.answer = this.choices[this.answerIndex].choice;
+      if(this.choices[this.answerIndex].choiceText != "") this.answer = this.choices[this.answerIndex].choiceText;
     }
 
-    if(this.choices.some(c => c.choice == ""))
+    if(this.choices.some(c => c.choiceText == ""))
     {
       this.warning = "Empty choices are removed before saving."
-      this.choices = this.choices.filter(c => c.choice !== "");
+      this.choices = this.choices.filter(c => c.choiceText !== "");
     }
 
     if(this.answer == "" || this.answer == undefined)
@@ -127,14 +127,14 @@ export class NewQuestionComponent {
     let newQuestion = {
       testId: this.testId,
       id: -1,
-      question: this.question,
+      questionText: this.question,
       answer: this.answer,
       choices: this.choices
     }
 
     if(this.questionToEdit)
     {
-      newQuestion.id = this.questionToEdit.id!;
+      newQuestion.id = this.questionToEdit.quesId!;
       this.questionsService.editQuestion(newQuestion).subscribe(
         (r) => {
           this.questionEdited.emit(r);

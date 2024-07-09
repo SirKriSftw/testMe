@@ -24,10 +24,25 @@
 }
 
 mat-icon {
-    color: red;
+    color: blue;
     cursor: pointer;
 }
 
+.del-bg {
+    padding: 0px 5px;
+    background-image: linear-gradient(to right, red, red 0%, white 0%, white 100%);
+    background-size: 200% 100%; /* Double the width to cover from left to right */
+    animation: fillBackground 3s linear forwards;
+}
+
+@keyframes fillBackground {
+    0% {
+      background-position: -100% 0;
+    }
+    100% {
+      background-position: 100% 0;
+    }
+  }
 
 .error {
     color: red;

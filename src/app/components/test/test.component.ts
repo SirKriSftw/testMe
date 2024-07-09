@@ -99,9 +99,7 @@ export class TestComponent {
   loadQuestion(question: Question, i: number)
   {
     const originalQuestion: Question = { ...question};
-    if(question.choices) originalQuestion.choices = [...question.choices];
-    
-
+    if(question.choices?.length) originalQuestion.choices = [...question.choices];
     const questionCard = this.questionsContainer.createComponent(QuestionCardComponent);
     this.questionsContainer.move(questionCard.hostView, i);
     if(this.test?.questions)
@@ -112,7 +110,6 @@ export class TestComponent {
       questionCard.instance.canEdit = this.isCreator();
       questionCard.instance.editingQuestion.subscribe(
         (r) => {
-          
           const editQ = this.questionsContainer.createComponent(NewQuestionComponent);
           this.questionsContainer.move(editQ.hostView, r[1]);
           editQ.instance.questionToEdit = r[0];
@@ -151,6 +148,7 @@ export class TestComponent {
       console.log(r);
       this.hasQuestions = true;
       newQ.destroy();
+      this.loadQuestion(r, this.test!.questions!.length - 1);
     })
     newQ.instance.questionCancelled.subscribe(() => {
       newQ.destroy();

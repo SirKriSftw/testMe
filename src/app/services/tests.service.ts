@@ -8,7 +8,7 @@ import { Cateogry } from '../models/category';
   providedIn: 'root'
 })
 export class TestsService {
-  private apiUrl = 'http://localhost:5257/api/tests';
+  private apiUrl = `http://localhost:5257/api/tests`;
   constructor(private http: HttpClient) { }
   
   getAllTestNames() : Observable<{testId: number, title: string, description?: string, categoryId: number}[]>

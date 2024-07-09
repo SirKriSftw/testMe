@@ -1,28 +1,21 @@
 import { Injectable } from '@angular/core';
 import { Question } from '../models/question.model';
 import { from, Observable } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class QuestionsService {
-
-  constructor() { }
-
-  tempId: number = 5;
-
+  private apiUrl = `http://localhost:5257/api/questions`;
+  constructor(private http: HttpClient) { }
   saveQuestion(q: Question) : Observable<Question>
   {
-    return from(new Promise<Question>((resolve, reject) => {
-      resolve(q);
-    }))
+    return this.http.post<Question>(this.apiUrl, q);
   }
 
   editQuestion(q: Question) : Observable<Question>
   {
-    return from(new Promise<Question>((resolve, reject) => {
-      resolve(q);
-    }))
+    return this.http.put<Question>(this.apiUrl, q);
   }
-
 }

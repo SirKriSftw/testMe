@@ -84,6 +84,7 @@ export class NewQuestionComponent {
   removeChoice(i: number)
   {
     this.choices.splice(i, 1);
+    if(this.choices.length == 0) this.answerIndex = -1;
   }
   
   trackByFn(index: number)
@@ -126,7 +127,7 @@ export class NewQuestionComponent {
   {
     let newQuestion = {
       testId: this.testId,
-      id: -1,
+      questionId: -1,
       questionText: this.question,
       answer: this.answer,
       choices: this.choices
@@ -134,7 +135,8 @@ export class NewQuestionComponent {
 
     if(this.questionToEdit)
     {
-      newQuestion.id = this.questionToEdit.questionId!;
+      newQuestion.questionId = this.questionToEdit.questionId!;
+      newQuestion.choices.map(c => c.questionId = this.questionToEdit?.questionId);
       this.questionsService.editQuestion(newQuestion).subscribe(
         (r) => {
           this.questionEdited.emit(r);

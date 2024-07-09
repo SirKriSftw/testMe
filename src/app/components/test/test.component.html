@@ -8,7 +8,7 @@
         <div class = "questions">
             <div class = "toggle">
                 <label>Hide Answers: </label>
-                <input type = "checkbox" [(ngModel)] = "hideAnswers">
+                <input type = "checkbox" [(ngModel)] = "hideAnswers" (change) = "getTestInfo()"> 
             </div>
             
             <div #questions></div>

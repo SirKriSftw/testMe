@@ -1,5 +1,11 @@
 <div class = "question">
-    <button class = "cancel" (click) = "cancelQuestion()">X</button>
+    <div class = "top-btns">
+        <button class = "cancel" (click) = "cancelQuestion()">X</button>
+        <mat-icon fontIcon = "delete_outline"
+        *ngIf = "questionToEdit"
+        (mousedown) = "startDel()"
+        (mouseup) = "stopDel()"></mat-icon>
+    </div>
     <div *ngFor = "let error of errors">
         <p class = "error">{{error}}</p>
     </div>

@@ -18,4 +18,9 @@ export class QuestionsService {
   {
     return this.http.put<Question>(this.apiUrl, q);
   }
+
+  deleteQuestion(id: number)
+  {
+    return this.http.delete(`${this.apiUrl}/${id}`);
+  }
 }

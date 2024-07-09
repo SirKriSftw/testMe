@@ -11,12 +11,23 @@
     flex-direction: column;
 }
 
+.top-btns {
+    display: flex;
+    justify-content: space-between;
+}
+
 .cancel {
     background-color: red;
     border-radius: 20px;
     width: 20px;
     cursor: pointer;
 }
+
+mat-icon {
+    color: red;
+    cursor: pointer;
+}
+
 
 .error {
     color: red;

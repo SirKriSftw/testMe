@@ -133,8 +133,12 @@ export class TestComponent {
           );
 
           editQ.instance.questionCancelled.subscribe(() => {
-            console.log(originalQuestion);
-            this.loadQuestion(originalQuestion, i)
+            this.loadQuestion(originalQuestion, i);
+            editQ.destroy();
+          });
+
+          editQ.instance.questionDeleted.subscribe((r) => {
+            this.test!.questions = this.test?.questions?.filter(q => q.questionId == r);
             editQ.destroy();
           })
           

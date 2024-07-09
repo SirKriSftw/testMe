@@ -15,6 +15,7 @@ export class NewQuestionComponent {
   @Input() testId: number = 0;
   @Input() questionToEdit?: Question;
   @Output() questionSaved = new EventEmitter<Question>();
+  @Output() questionDeleted = new EventEmitter<number>();
   @Output() questionEdited = new EventEmitter<Question>();
   @Output() questionCancelled = new EventEmitter();
 
@@ -25,6 +26,9 @@ export class NewQuestionComponent {
   errors: string [] = [];
   warning: string = "";
   MAX_CHOICES: number = 26;
+
+  holdDelTime: number = 3000; // Hold for 3s to delete
+  holdDelTimer: any;
 
   constructor(private questionsService: QuestionsService,
               private renderer: Renderer2
@@ -60,6 +64,29 @@ export class NewQuestionComponent {
   {
     const inputElement = this.questionInput.element.nativeElement as HTMLInputElement;    
     this.renderer.selectRootElement(inputElement).focus(); 
+  }
+
+  deleteQuestion()
+  {
+    const id = this.questionToEdit!.questionId!;
+    this.questionsService.deleteQuestion(id).subscribe(
+      () => {
+        console.log("Question deleted");
+        this.questionDeleted.emit(id);
+      }
+    );
+  }
+
+  startDel()
+  {
+    this.holdDelTimer = setTimeout(() => {
+      this.deleteQuestion();
+    }, this.holdDelTime);
+  }
+
+  stopDel()
+  {
+    clearTimeout(this.holdDelTimer);
   }
 
   choiceLabel(i: number)

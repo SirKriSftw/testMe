@@ -62,6 +62,7 @@ export class TestComponent {
     this.testsService.getTest(this.id!).subscribe(
       (r) => {
         this.test = r;
+        this.unloadQuestions();
         if(!this.test?.isPublic && !this.isCreator()) this.router.navigate(["tests"]);
         if(this.test == undefined) this.router.navigate(["tests"]);
 
@@ -75,6 +76,7 @@ export class TestComponent {
             })
           }
         }
+        
       },
       (e) => {
         this.router.navigate(["tests"]);
@@ -94,6 +96,11 @@ export class TestComponent {
     const optionLetter = String.fromCharCode(asciiValue);
 
     return `${optionLetter}.`
+  }
+
+  unloadQuestions()
+  {
+    this.questionsContainer.clear();
   }
 
   loadQuestion(question: Question, i: number)
@@ -134,7 +141,6 @@ export class TestComponent {
         }
       );
     }
-    
   }
 
   newQuestion()

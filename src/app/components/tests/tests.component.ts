@@ -51,6 +51,6 @@ export class TestsComponent {
 
     goToTest(id: number)
     {
-      this.router.navigate(["/test/" + id])
+      this.router.navigate(["/test/" + id]);
     }
 }

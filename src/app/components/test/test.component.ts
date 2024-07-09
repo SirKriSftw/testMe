@@ -96,6 +96,11 @@ export class TestComponent {
     return this.loggedInId == this.test?.creatorId;
   }
 
+  toggleAnswers()
+  {
+    
+  }
+
   newQuestion()
   {
     const newQ = this.newQuesitonContainer.createComponent(NewQuestionComponent);

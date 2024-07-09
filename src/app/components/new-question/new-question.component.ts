@@ -27,7 +27,7 @@ export class NewQuestionComponent {
   warning: string = "";
   MAX_CHOICES: number = 26;
 
-  holdDelTime: number = 3000; // Hold for 3s to delete
+  holdDelTime: number = 2000; // Hold for 2s to delete
   holdDelTimer: any;
 
   constructor(private questionsService: QuestionsService,
@@ -88,6 +88,7 @@ export class NewQuestionComponent {
   {
     clearTimeout(this.holdDelTimer);
   }
+
 
   choiceLabel(i: number)
   {

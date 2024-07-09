@@ -14,35 +14,48 @@
 .top-btns {
     display: flex;
     justify-content: space-between;
+    align-items: center;
 }
 
 .cancel {
-    background-color: red;
+    background-color: #fecaca;
+    color: #dc2626;
+    border: 2px solid #fca5a5;
     border-radius: 20px;
     width: 20px;
     cursor: pointer;
 }
 
-mat-icon {
-    color: blue;
+.delete {
+    display: inline-block;
+    background-color: #fecaca;
+    color: #dc2626;
+    border: 2px solid #fca5a5;
+    font-size: 12px;
+    border-radius: 20%;
+    padding: 3px 4px;
+}
+
+.delete:hover, .cancel:hover {
+    border-color: #ef4444;
     cursor: pointer;
 }
 
-.del-bg {
-    padding: 0px 5px;
-    background-image: linear-gradient(to right, red, red 0%, white 0%, white 100%);
-    background-size: 200% 100%; /* Double the width to cover from left to right */
-    animation: fillBackground 3s linear forwards;
+.delete:active {
+   background-image: linear-gradient(to right, #fca5a5 0%, #fca5a5 50%, #fecaca 50%, #fecaca 100%); 
+   background-size: 200% 100%;
+   background-position: 100%;
+   animation: 2s confirmation ease-out forwards;
 }
 
-@keyframes fillBackground {
-    0% {
-      background-position: -100% 0;
+@keyframes confirmation {
+    from {
+        background-position: 100%;
     }
-    100% {
-      background-position: 100% 0;
+    to {
+        background-position: 0%;
     }
-  }
+}
 
 .error {
     color: red;

@@ -1,4 +1,4 @@
-import { Component, HostListener, ViewChild, ViewContainerRef } from '@angular/core';
+import { Component, ComponentRef, HostListener, ViewChild, ViewContainerRef } from '@angular/core';
 import { TestsService } from '../../services/tests.service';
 import { Test } from '../../models/test.model';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -32,6 +32,15 @@ export class TestComponent {
               private router: Router
   ){}
 
+  @HostListener("document:keyup", ["$event"])
+  addKeyUp(e: KeyboardEvent)
+  {
+    if(e.key === "+" && this.isCreator())
+    {
+      this.newQuestion();
+    } 
+  }
+
   ngOnInit()
   {
     this.authService.loggedInUser().subscribe(
@@ -46,15 +55,6 @@ export class TestComponent {
       if(urlID) this.id = parseInt(urlID);
       if(this.id) this.getTestInfo();
     });
-  }
-
-  @HostListener("document:keyup", ["$event"])
-  addKeyUp(e: KeyboardEvent)
-  {
-    if(e.key === "+" && this.isCreator())
-    {
-      this.newQuestion();
-    } 
   }
 
   getTestInfo()
@@ -84,67 +84,16 @@ export class TestComponent {
     );
   }
 
+  takeTest()
+  {
+    this.dialogService.openDialog("take-test").afterClosed().subscribe(r => {
+      if(r != undefined) this.router.navigate(["/take/test/" + this.test?.testId], { state: { info: r }});
+    })
+  }
+
   isCreator()
   {
     return this.loggedInId == this.test?.creatorId;
-  }
-
-  choiceLabel(i: number)
-  {
-    const asciiA = "a".charCodeAt(0);
-    const asciiValue = i + asciiA;
-    const optionLetter = String.fromCharCode(asciiValue);
-
-    return `${optionLetter}.`
-  }
-
-  unloadQuestions()
-  {
-    this.questionsContainer.clear();
-  }
-
-  loadQuestion(question: Question, i: number)
-  {
-    const originalQuestion: Question = { ...question};
-    if(question.choices?.length) originalQuestion.choices = [...question.choices];
-    const questionCard = this.questionsContainer.createComponent(QuestionCardComponent);
-    this.questionsContainer.move(questionCard.hostView, i);
-    if(this.test?.questions)
-    {
-      questionCard.instance.question = question;
-      questionCard.instance.index = i;
-      questionCard.instance.hideAnswers = this.hideAnswers;
-      questionCard.instance.canEdit = this.isCreator();
-      questionCard.instance.editingQuestion.subscribe(
-        (r) => {
-          const editQ = this.questionsContainer.createComponent(NewQuestionComponent);
-          this.questionsContainer.move(editQ.hostView, r[1]);
-          editQ.instance.questionToEdit = r[0];
-          editQ.instance.testId = r[0].testId;
-          questionCard.destroy();
-          editQ.instance.questionEdited.subscribe(
-            (r) => {
-              this.test!.questions![i] = question;
-              console.log("Saving edit...");
-              console.log(r);
-              this.loadQuestion(r, i);
-              editQ.destroy();
-            }
-          );
-
-          editQ.instance.questionCancelled.subscribe(() => {
-            this.loadQuestion(originalQuestion, i);
-            editQ.destroy();
-          });
-
-          editQ.instance.questionDeleted.subscribe((r) => {
-            this.test!.questions = this.test?.questions?.filter(q => q.questionId == r);
-            editQ.destroy();
-          })
-          
-        }
-      );
-    }
   }
 
   newQuestion()
@@ -165,10 +114,93 @@ export class TestComponent {
     })
   }
 
-  takeTest()
+  unloadQuestions()
   {
-    this.dialogService.openDialog("take-test").afterClosed().subscribe(r => {
-      if(r != undefined) this.router.navigate(["/take/test/" + this.test?.testId], { state: { info: r }});
-    })
+    this.questionsContainer.clear();
+  }
+
+  loadQuestion(question: Question, i: number)
+  {
+    if(!this.test?.questions) return;
+
+    const questionCard = this.questionsContainer.createComponent(QuestionCardComponent);
+    this.questionsContainer.move(questionCard.hostView, i);
+
+    this.setupComponent(question, i, questionCard);
+  }
+
+  setupComponent(question: Question, i: number, questionCard: ComponentRef<QuestionCardComponent>)
+  {
+    this.loadInfo(question, i, questionCard);
+    this.handleEditing(question, questionCard);
+  }
+
+  loadInfo(question: Question, i: number, questionCard: ComponentRef<QuestionCardComponent>)
+  {
+    questionCard.instance.question = question;
+    questionCard.instance.index = i;
+    questionCard.instance.hideAnswers = this.hideAnswers;
+    questionCard.instance.canEdit = this.isCreator();
+  }
+
+  handleEditing(question: Question, questionCard: ComponentRef<QuestionCardComponent>)
+  {
+    questionCard.instance.editingQuestion.subscribe(
+      (qInfo) => {
+        this.makeEditComponent(qInfo, question, questionCard)
+      }
+    );
+  }
+
+  makeEditComponent(qInfo: any, question: Question, questionCard: ComponentRef<QuestionCardComponent>)
+  {
+    // Get information about question and its index from editingQuestion event in question card component
+    const questionToEdit = qInfo[0];
+    const questionIndex = qInfo[1];
+
+    // Swap question card with new question component
+    const editQ = this.questionsContainer.createComponent(NewQuestionComponent);
+    this.questionsContainer.move(editQ.hostView, questionIndex);
+    editQ.instance.questionToEdit = questionToEdit;
+    editQ.instance.testId = questionToEdit.testId;
+    questionCard.destroy();
+
+    this.handleEditEvents(questionIndex, question, editQ);
+  }
+
+  handleEditEvents(index: number, question: Question, editQ: ComponentRef<NewQuestionComponent>)
+  {
+    // Keep track before editing in case of cancel
+    const originalQuestion: Question = { ...question};
+    if(question.choices?.length) originalQuestion.choices = [...question.choices];
+
+    editQ.instance.questionEdited.subscribe(
+      (r) => {
+        this.test!.questions![index] = question;
+        console.log("Saving edit...");
+        console.log(r);
+        this.loadQuestion(r, index);
+        editQ.destroy();
+      }
+    );
+
+    editQ.instance.questionCancelled.subscribe(() => {
+      this.loadQuestion(originalQuestion, index);
+      editQ.destroy();
+    });
+
+    editQ.instance.questionDeleted.subscribe((r) => {
+      this.test!.questions = this.test?.questions?.filter(q => q.questionId == r);
+      editQ.destroy();
+    });
+  }
+
+  choiceLabel(i: number)
+  {
+    const asciiA = "a".charCodeAt(0);
+    const asciiValue = i + asciiA;
+    const optionLetter = String.fromCharCode(asciiValue);
+
+    return `${optionLetter}.`
   }
 }

@@ -125,7 +125,7 @@ export class TestComponent {
   {
     const questionCard = this.questionsContainer.createComponent(QuestionCardComponent);
     this.questionComponents.push(questionCard);
-    //this.questionsContainer.move(questionCard.hostView, i);
+    this.questionsContainer.move(questionCard.hostView, i);
 
     this.setupComponent(question, i, questionCard);
   }

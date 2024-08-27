@@ -140,6 +140,13 @@ export class NewQuestionComponent {
       this.choices = this.choices.filter(c => c.choiceText !== "");
     }
 
+    const noDupChoices = new Set(this.choices.map( c => c.choiceText))
+    console.log(noDupChoices.size + "|" + this.choices.length);
+    if(noDupChoices.size !== this.choices.length)
+    {
+      this.errors.push("Duplicate Choices are not allowed.");
+    }
+
     if(this.answer == "" || this.answer == undefined)
     {
       this.errors.push("An answer is required.");

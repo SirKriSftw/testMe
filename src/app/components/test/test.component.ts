@@ -191,7 +191,7 @@ export class TestComponent {
     });
 
     editQ.instance.questionDeleted.subscribe((r) => {
-      this.test!.questions = this.test?.questions?.filter(q => q.questionId == r);
+      this.test!.questions = this.test?.questions?.filter(q => q.questionId != r);
       editQ.destroy();
       this.questionComponents.forEach((q, i) => {
         if(i > index)

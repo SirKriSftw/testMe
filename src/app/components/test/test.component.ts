@@ -24,6 +24,8 @@ export class TestComponent {
   loggedInId?: number;
   hideAnswers: boolean = true;
 
+  questionComponents: any[] = [];
+
   constructor(private testsService: TestsService,
               private dialogService: DialogService,
               private authService: AuthenticationService,
@@ -61,15 +63,19 @@ export class TestComponent {
     });
   }
 
+  toggleAnswers()
+  {
+    this.questionComponents.forEach(q => q.instance.hideAnswers = this.hideAnswers)
+  }
+
   getTestInfo()
   {
     this.testsService.getTest(this.id!).subscribe(
       (r) => {
         this.test = r;
-        this.unloadQuestions();
-        if(!this.test?.isPublic && !this.isCreator()) this.router.navigate(["tests"]);
         if(this.test == undefined) this.router.navigate(["tests"]);
-
+        if(!this.test?.isPublic && !this.isCreator()) this.router.navigate(["tests"]);
+        
         if(this.test?.questions)
         {
           if(this.hasQuestions())
@@ -108,24 +114,18 @@ export class TestComponent {
       if(!this.test?.questions) this.test!.questions = [];
       this.test?.questions?.push(r);
       newQ.destroy();
-      this.loadQuestion(r, this.test!.questions!.length - 1);
+      this.loadQuestion(r, this.questionComponents.length);
     })
     newQ.instance.questionCancelled.subscribe(() => {
       newQ.destroy();
     })
   }
 
-  unloadQuestions()
-  {
-    this.questionsContainer.clear();
-  }
-
   loadQuestion(question: Question, i: number)
   {
-    if(!this.test?.questions) return;
-
     const questionCard = this.questionsContainer.createComponent(QuestionCardComponent);
-    this.questionsContainer.move(questionCard.hostView, i);
+    this.questionComponents.push(questionCard);
+    //this.questionsContainer.move(questionCard.hostView, i);
 
     this.setupComponent(question, i, questionCard);
   }
@@ -192,8 +192,13 @@ export class TestComponent {
 
     editQ.instance.questionDeleted.subscribe((r) => {
       this.test!.questions = this.test?.questions?.filter(q => q.questionId == r);
-      this.getTestInfo();
       editQ.destroy();
+      this.questionComponents.forEach((q, i) => {
+        if(i > index)
+        {
+          q.instance.index--;
+        }
+      })
     });
   }
 

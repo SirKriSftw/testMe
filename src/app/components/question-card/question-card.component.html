@@ -20,7 +20,7 @@
             </div> 
         </div> 
     </div>
-    <div class = "incorrect" *ngIf = "isResults && !isCorrect && isCorrect != undefined">
+    <div class = "incorrect" *ngIf = "isResults && !isCorrect && !userAnswer">
        <div class = "no-answer">You did not answer :(</div>
     </div>
     <div class = "answer" *ngIf = "isResults && !question.choices?.length && userAnswer != ''"
